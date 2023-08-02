@@ -38,5 +38,5 @@ jobs:
         application_name: ${{ env.EB_APP_NAME }}
         environment_name: ${{ env.EB_ENVIRONMENT }}
         version_label: dev_${{ github.run_number }}
-        deployment_package: ./demo/deploy.zip
+        deployment_package: deploy.zip
         use_existing_version_if_available: true
