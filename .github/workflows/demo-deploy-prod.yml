@@ -1,0 +1,43 @@
+name: Deploy Ecommerce Demo to Amazon ECS - Production
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: eu-west-2
+  EB_APP_NAME: ecommerce-demo
+  EB_ENVIRONMENT: ecommerce-demo-production
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Generate deployment package
+      run: |
+        cd demo
+        cp index-prod.html index.html
+        zip -r deploy.zip . -x '*.git*' 'dist/*' 'build' 'node_modules/*' '.env*' '.*ignore' 'README.md' 'deploy.zip'
+
+    - name: Beanstalk Deploy
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        region: ${{ env.AWS_REGION }}
+        application_name: ${{ env.EB_APP_NAME }}
+        environment_name: ${{ env.EB_ENVIRONMENT }}
+        version_label: prod_${{ github.run_number }}
+        deployment_package: ./demo/deploy.zip
+        use_existing_version_if_available: true
