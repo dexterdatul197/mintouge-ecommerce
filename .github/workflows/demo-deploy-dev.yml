@@ -1,4 +1,4 @@
-name: Deploy Ecommerce Demo to Amazon ECS - Development
+name: Deploy Development
 
 on:
   push:
@@ -26,7 +26,6 @@ jobs:
 
     - name: Generate deployment package
       run: |
-        cd demo
         cp index-develop.html index.html
         zip -r deploy.zip . -x '*.git*' 'dist/*' 'build' 'node_modules/*' '.env*' '.*ignore' 'README.md' 'deploy.zip'
 
