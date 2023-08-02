@@ -1,0 +1,74 @@
+[
+    {
+        "id": "1",
+        "name": "men"
+    },
+    {
+        "id": "2",
+        "name": "women"
+    },
+    {
+        "id": "3",
+        "name": "electronics"
+    },
+    {
+        "id": "4",
+        "name": "furniture"
+    },
+    {
+        "id": "5",
+        "name": "plant"
+    },
+    {
+        "id": "6",
+        "name": "organic food"
+    },
+    {
+        "id": "7",
+        "name": "flower"
+    },
+    {
+        "id": "8",
+        "name": "book"
+    },
+    {
+        "id": "9",
+        "name": "cosmetics"
+    },
+    {
+        "id": "10",
+        "name": "accessories"
+    },
+    {
+        "id": "11",
+        "name": "handmade"
+    },
+    {
+        "id": "12",
+        "name": "kids"
+    },
+    {
+        "id": "13",
+        "name": "auto parts"
+    },
+    {
+        "id": "14",
+        "name": "cakes"
+    },
+    {
+        "id": "15",
+        "name": "pet food"
+    },
+    {
+        "id": "16",
+        "name": "medical"
+    },
+    {
+        "id": "17",
+        "name": "black friday"
+    },
+    {
+        "id": "18",
+        "name": "christmas"
+    }
+]
