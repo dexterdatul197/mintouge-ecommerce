@@ -12,8 +12,6 @@
 /dist
 /build
 
-Dockerfile
-
 # misc
 .DS_Store
 .env
