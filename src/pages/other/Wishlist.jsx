@@ -23,7 +23,7 @@ const Wishlist = () => {
     <Fragment>
       <SEO
         titleTemplate="Wishlist"
-        description="Wishlist page of mintouge react minimalist eCommerce template."
+        description="Wishlist page of vaultik react minimalist eCommerce template."
       />
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}

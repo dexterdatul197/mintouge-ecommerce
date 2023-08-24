@@ -22,9 +22,9 @@ SEO.propTypes = {
 }
 
 SEO.defaultProps = {
-    title: "Mintouge",
+    title: "Vaultik",
     titleTemplate: "Product Page",
-    description: "Product page of mintouge react minimalist eCommerce template.",
+    description: "Product page of vaultik react minimalist eCommerce template.",
 };
 
 export default SEO;

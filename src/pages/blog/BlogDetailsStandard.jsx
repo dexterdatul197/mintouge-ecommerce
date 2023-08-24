@@ -14,7 +14,7 @@ const BlogDetailsStandard = () => {
     <Fragment>
       <SEO
         titleTemplate="Blog Post"
-        description="Blog Post of mintouge react minimalist eCommerce template."
+        description="Blog Post of vaultik react minimalist eCommerce template."
       />
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}

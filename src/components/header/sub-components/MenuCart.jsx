@@ -20,18 +20,18 @@ const MenuCart = () => {
                 item.price,
                 item.discount
               );
-              const nftPrice = item.nftPrice
-                ? item.addNft
-                  ? item.nftPrice
+              const insuranceFee = item.insuranceFee
+                ? item.hasInsurance
+                  ? item.insuranceFee
                   : 0
                 : 0;
               const finalProductPrice = (
                 item.price * currency.currencyRate +
-                nftPrice
+                insuranceFee
               ).toFixed(2);
               const finalDiscountedPrice = (
                 discountedPrice * currency.currencyRate +
-                nftPrice
+                insuranceFee
               ).toFixed(2);
               discountedPrice != null
                 ? (cartTotalPrice += finalDiscountedPrice * item.quantity)

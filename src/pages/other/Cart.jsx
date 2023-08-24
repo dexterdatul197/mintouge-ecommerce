@@ -8,12 +8,12 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import {
   addToCart,
-  addNftPrice,
-  addNftCheck,
+  setInsuranceFee,
+  selectInsurance,
   decreaseQuantity,
   deleteFromCart,
   deleteAllFromCart,
-  addData,
+  addDpp,
 } from "../../store/slices/cart-slice";
 import { cartItemStock } from "../../helpers/product";
 import { OrderApi } from "../../services/api";
@@ -30,16 +30,16 @@ const Cart = () => {
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
 
-  const handleMint = async (cartItem) => {
+  const getInsuranceFee = async (cartItem) => {
     let fee = 0;
     try {
       const _fee = await OrderApi.getOrderFee(cartItem.productKey);
       fee = _fee.feeInUsd + _fee.insuranceFeeInUsd + _fee.commissionFeeInUsd;
 
       dispatch(
-        addNftPrice({
+        setInsuranceFee({
           ...cartItem,
-          nftPrice: fee,
+          insuranceFee: fee,
         })
       );
       cogoToast.success("Fee was successfully fetched", {
@@ -51,36 +51,6 @@ const Cart = () => {
       });
       return;
     }
-
-    try {
-      const dpp = String(Date.now());
-      const order = {
-        productInfo: cartItem,
-        consumerInfo: {
-          email: user?.email,
-          phone: "+0 000-000-0000",
-          firstName: "Test",
-          lastName: "User",
-        },
-        amount: Math.round(fee * 100),
-        chain: "goerli",
-        dpp: dpp,
-        redeemCode: dpp,
-      };
-
-      await OrderApi.addOrder(order);
-      dispatch(
-        addData({
-          ...cartItem,
-          dpp: order.dpp,
-          redeemCode: order.redeemCode,
-        })
-      );
-      cogoToast.success("Order was successfully", { position: "bottom-left" });
-    } catch (error) {
-      cogoToast.error(error.toString() + " error", { position: "bottom-left" });
-      return;
-    }
   };
 
   const handleCreateNFT = (cartItem) => {
@@ -89,22 +59,22 @@ const Cart = () => {
       [cartItem.id]: !nftCreate[cartItem.id],
     });
 
-    if (cartItem?.nftPrice) {
+    if (cartItem?.insuranceFee) {
       dispatch(
-        addNftCheck({
+        selectInsurance({
           ...cartItem,
-          addNft: !cartItem.addNft,
+          hasInsurance: !cartItem.hasInsurance,
         })
       );
     } else {
       if (user?.email) {
         dispatch(
-          addNftCheck({
+          selectInsurance({
             ...cartItem,
-            addNft: !cartItem.addNft,
+            hasInsurance: !cartItem.hasInsurance,
           })
         );
-        handleMint(cartItem);
+        getInsuranceFee(cartItem);
       } else {
         cogoToast.error(
           "Please login to your account first and then proceed with the payment.",
@@ -118,7 +88,7 @@ const Cart = () => {
     <Fragment>
       <SEO
         titleTemplate="Cart"
-        description="Cart page of mintouge react minimalist eCommerce template."
+        description="Cart page of vaultik react minimalist eCommerce template."
       />
 
       <LayoutOne headerTop="visible">
@@ -156,18 +126,18 @@ const Cart = () => {
                               cartItem.discount
                             );
 
-                            const nftPrice = cartItem.nftPrice
-                              ? cartItem.addNft
-                                ? cartItem.nftPrice
+                            const insuranceFee = cartItem.insuranceFee
+                              ? cartItem.hasInsurance
+                                ? cartItem.insuranceFee
                                 : 0
                               : 0;
                             const finalProductPrice = (
                               cartItem.price * currency.currencyRate +
-                              nftPrice
+                              insuranceFee
                             ).toFixed(2);
                             const finalDiscountedPrice = (
                               discountedPrice * currency.currencyRate +
-                              nftPrice
+                              insuranceFee
                             ).toFixed(2);
 
                             discountedPrice != null
@@ -210,7 +180,7 @@ const Cart = () => {
                                   <input
                                     type="checkbox"
                                     style={{ height: "15px" }}
-                                    checked={cartItem.addNft | false}
+                                    checked={cartItem.hasInsurance | false}
                                     onChange={() => handleCreateNFT(cartItem)}
                                   />
                                 </td>

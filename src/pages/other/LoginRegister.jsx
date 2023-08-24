@@ -61,7 +61,7 @@ const LoginRegister = () => {
     <Fragment>
       <SEO
         titleTemplate="Login"
-        description="Login page of mintouge react minimalist eCommerce template."
+        description="Login page of vaultik react minimalist eCommerce template."
       />
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}

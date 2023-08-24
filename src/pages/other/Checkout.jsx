@@ -1,12 +1,14 @@
 import { Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import cogoToast from "cogo-toast";
 import emailjs from "@emailjs/browser";
 import { getDiscountPrice } from "../../helpers/product";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { OrderApi } from "../../services/api";
+import { addDpp } from "../../store/slices/cart-slice";
 
 const Checkout = () => {
   let cartTotalPrice = 0;
@@ -15,55 +17,111 @@ const Checkout = () => {
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const hasNftList = cartItems.filter((item) =>
-    item.hasOwnProperty("nftPrice")
+    item.hasOwnProperty("insuranceFee")
   );
+  const createInsurance = async (cartItem) => {
+    try {
+      const dpp = String(Date.now());
+      const order = {
+        productInfo: cartItem,
+        consumerInfo: {
+          email: user?.email,
+          phone: "+0 000-000-0000",
+          firstName: "Test",
+          lastName: "User",
+        },
+        amount: Math.round(cartItem.insuranceFee * 100 || 0),
+        chain: "goerli",
+        dpp: dpp,
+        redeemCode: dpp,
+      };
 
-  const itemsText = cartItems.map((item, index) => {
-    const discountedPrice = getDiscountPrice(item.price, item.discount);
-    const nftPrice = item.nftPrice ? (item.addNft ? item.nftPrice : 0) : 0;
-    const finalProductPrice = (
-      item.price * currency.currencyRate +
-      nftPrice
-    ).toFixed(2);
-    const finalDiscountedPrice = (
-      discountedPrice * currency.currencyRate +
-      nftPrice
-    ).toFixed(2);
+      await OrderApi.addOrder(order);
+      const _cartItem = {
+        ...cartItem,
+        dpp: order.dpp,
+        redeemCode: order.redeemCode,
+      };
+      dispatch(addDpp(_cartItem));
+      return _cartItem;
+    } catch (error) {
+      cogoToast.error(error.toString() + " error", { position: "bottom-left" });
+      return undefined;
+    }
+  };
 
-    const dppText = item?.dpp ? `DPP: ${item?.dpp},` : "";
-    const redeemCodeText = item?.redeemCode
-      ? `RedeemCode: ${item?.redeemCode}`
-      : "";
+  const handlePlaceOrder = async () => {
+    const strItemList = [];
+    let index = 0;
+    for (const cartItem of cartItems) {
+      if (cartItem.hasInsurance) {
+        const item = await createInsurance(cartItem);
 
-    const finalProductTotalPrice =
-      discountedPrice != null
-        ? finalDiscountedPrice * item.quantity
-        : finalProductPrice * item.quantity;
-    return `${index + 1}. ${item.name} - Quantity: ${item.quantity}, Price: $${
-      currency.currencySymbol + finalProductTotalPrice.toFixed(2)
-    }, ${dppText} ${redeemCodeText}`;
-  });
+        if (!item) continue;
 
-  const emailText = `
-    Dear Customer,
+        const discountedPrice = getDiscountPrice(item.price, item.discount);
+        const insuranceFee = item.insuranceFee ? (item.hasInsurance ? item.insuranceFee : 0) : 0;
+        const finalProductPrice = (
+          item.price * currency.currencyRate +
+          insuranceFee
+        ).toFixed(2);
+        const finalDiscountedPrice = (
+          discountedPrice * currency.currencyRate +
+          insuranceFee
+        ).toFixed(2);
 
-    Thank you for your order. Here are the details of your purchase:
+        const dppText = item?.dpp ? `DPP: ${item?.dpp},` : "";
+        const redeemCodeText = item?.redeemCode
+          ? `RedeemCode: ${item?.redeemCode}`
+          : "";
 
-    ${itemsText.join("\n")}
+        const finalProductTotalPrice = discountedPrice != null
+          ? finalDiscountedPrice * item.quantity
+          : finalProductPrice * item.quantity;
 
-    If you have any questions or need further assistance, please contact us.
+        strItemList.push(`${index + 1}. ${item.name} - Quantity: ${item.quantity}, Price: $${currency.currencySymbol + finalProductTotalPrice.toFixed(2)
+          }, ${dppText} ${redeemCodeText}`);
+      }
 
-    Best regards,
-    Mintouge
-  `;
+      index++;
+    }
+    // cogoToast.success("Order was successfully placed", { position: "bottom-left" });
 
-  const sendEmail = () => {
+    const emailText = `
+      Dear Customer,
+
+      Thank you for your order. Here are the details of your purchase:
+
+      ${strItemList.join("\n")}
+
+      If you have any questions or need further assistance, please contact us.
+
+      Best regards,
+      Vaultik
+    `;
+    if (strItemList.length > 0) {
+      sendEmail(emailText);
+    } else {
+      cogoToast.error(
+        "No product was purchased. :(",
+        {
+          position: "bottom-left",
+        }
+      );
+    }
+  }
+
+  const sendEmail = (emailText) => {
+
+
     if (user?.email) {
       const templateParams = {
         to_email: user?.email,
         to_name: user?.email,
-        from_name: "Mintouge",
+        from_name: "Vaultik",
         message: emailText,
       };
 
@@ -104,7 +162,7 @@ const Checkout = () => {
     <Fragment>
       <SEO
         titleTemplate="Checkout"
-        description="Checkout page of mintouge react minimalist eCommerce template."
+        description="Checkout page of vaultik react minimalist eCommerce template."
       />
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
@@ -231,25 +289,25 @@ const Checkout = () => {
                                 cartItem.price,
                                 cartItem.discount
                               );
-                              const nftPrice = cartItem.nftPrice
-                                ? cartItem.addNft
-                                  ? cartItem.nftPrice
+                              const insuranceFee = cartItem.insuranceFee
+                                ? cartItem.hasInsurance
+                                  ? cartItem.insuranceFee
                                   : 0
                                 : 0;
                               const finalProductPrice = (
                                 cartItem.price * currency.currencyRate +
-                                nftPrice
+                                insuranceFee
                               ).toFixed(2);
                               const finalDiscountedPrice = (
                                 discountedPrice * currency.currencyRate +
-                                nftPrice
+                                insuranceFee
                               ).toFixed(2);
 
                               discountedPrice != null
                                 ? (cartTotalPrice +=
-                                    finalDiscountedPrice * cartItem.quantity)
+                                  finalDiscountedPrice * cartItem.quantity)
                                 : (cartTotalPrice +=
-                                    finalProductPrice * cartItem.quantity);
+                                  finalProductPrice * cartItem.quantity);
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
@@ -258,14 +316,14 @@ const Checkout = () => {
                                   <span className="order-price">
                                     {discountedPrice !== null
                                       ? currency.currencySymbol +
-                                        (
-                                          finalDiscountedPrice *
-                                          cartItem.quantity
-                                        ).toFixed(2)
+                                      (
+                                        finalDiscountedPrice *
+                                        cartItem.quantity
+                                      ).toFixed(2)
                                       : currency.currencySymbol +
-                                        (
-                                          finalProductPrice * cartItem.quantity
-                                        ).toFixed(2)}
+                                      (
+                                        finalProductPrice * cartItem.quantity
+                                      ).toFixed(2)}
                                   </span>
                                 </li>
                               );
@@ -291,7 +349,7 @@ const Checkout = () => {
                       <div className="payment-method"></div>
                     </div>
                     <div className="place-order mt-25">
-                      <button className="btn-hover" onClick={sendEmail}>
+                      <button className="btn-hover" onClick={handlePlaceOrder}>
                         Place Order
                       </button>
                     </div>

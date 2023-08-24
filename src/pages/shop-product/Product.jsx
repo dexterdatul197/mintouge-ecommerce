@@ -27,7 +27,7 @@ const Product = (props) => {
     <Fragment>
       <SEO
         titleTemplate="Product Page"
-        description="Product Page of mintouge react minimalist eCommerce template."
+        description="Product Page of vaultik react minimalist eCommerce template."
       />
 
       <LayoutOne headerTop="visible">

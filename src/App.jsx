@@ -51,8 +51,8 @@ const App = () => {
       <ScrollToTop>
         <Suspense
           fallback={
-            <div className="mintouge-preloader-wrapper">
-              <div className="mintouge-preloader">
+            <div className="vaultik-preloader-wrapper">
+              <div className="vaultik-preloader">
                 <span></span>
                 <span></span>
               </div>

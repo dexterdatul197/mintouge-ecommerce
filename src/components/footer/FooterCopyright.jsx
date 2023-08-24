@@ -17,7 +17,7 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
           rel="noopener noreferrer"
           target="_blank"
         >
-          Mintouge
+          Vaultik
         </a>
         .<br /> All Rights Reserved
       </p>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT || "https://brand.api.mintouge.com";
+export const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT || "https://brand.api.vaultik.com";
 
 const API_SECRET_KEY = import.meta.env.VITE_APP_APIKEY;
 const axiosApi = axios.create({

@@ -11,7 +11,7 @@ const Contact = () => {
     <Fragment>
       <SEO
         titleTemplate="Contact"
-        description="Contact page of mintouge react minimalist eCommerce template."
+        description="Contact page of vaultik react minimalist eCommerce template."
       />
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}

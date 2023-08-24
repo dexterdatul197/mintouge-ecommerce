@@ -19,7 +19,7 @@ import categoryReducer from "./slices/category-slice";
 import userSlice from './slices/user-slice';
 
 const persistConfig = {
-    key: "mintouge",
+    key: "vaultik",
     version: 1.1,
     storage,
     blacklist: ["product"]

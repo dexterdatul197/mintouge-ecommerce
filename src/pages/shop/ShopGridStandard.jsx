@@ -80,7 +80,7 @@ const ShopGridStandard = (props) => {
     <Fragment>
       <SEO
         titleTemplate="Shop Page"
-        description="Shop page of mintouge react minimalist eCommerce template."
+        description="Shop page of vaultik react minimalist eCommerce template."
       />
 
       <LayoutOne headerTop="visible">

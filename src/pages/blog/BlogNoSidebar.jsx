@@ -13,7 +13,7 @@ const BlogNoSidebar = () => {
     <Fragment>
       <SEO
         titleTemplate="Blog"
-        description="Blog of mintouge react minimalist eCommerce template."
+        description="Blog of vaultik react minimalist eCommerce template."
       />
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
