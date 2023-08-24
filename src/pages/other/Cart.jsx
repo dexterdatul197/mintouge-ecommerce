@@ -286,9 +286,7 @@ const Cart = () => {
                         </Link>
                       </div>
                       <div className="cart-clear">
-                        <button onClick={() => dispatch(deleteAllFromCart())}>
-                          Clear Shopping Cart
-                        </button>
+                        <Link to={"/checkout"}>Proceed to Checkout</Link>
                       </div>
                     </div>
                   </div>
@@ -378,7 +376,9 @@ const Cart = () => {
                           {currency.currencySymbol + cartTotalPrice.toFixed(2)}
                         </span>
                       </h4>
-                      <Link to={"/checkout"}>Proceed to Checkout</Link>
+                      <button onClick={() => dispatch(deleteAllFromCart())}>
+                        Clear Shopping Cart
+                      </button>
                     </div>
                   </div>
                 </div>
