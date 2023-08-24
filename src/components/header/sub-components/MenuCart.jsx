@@ -86,9 +86,6 @@ const MenuCart = () => {
             <Link className="default-btn" to={"/cart"}>
               view cart
             </Link>
-            <Link className="default-btn" to={"/checkout"}>
-              checkout
-            </Link>
           </div>
         </Fragment>
       ) : (
