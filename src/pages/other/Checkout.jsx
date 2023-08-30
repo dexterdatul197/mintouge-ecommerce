@@ -1,5 +1,5 @@
-import { Fragment } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { React, Fragment, useState } from "react";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import cogoToast from "cogo-toast";
 import emailjs from "@emailjs/browser";
@@ -18,7 +18,7 @@ const Checkout = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
+  const [isMinting, setMinting] = useState(false);
   const hasNftList = cartItems.filter((item) =>
     item.hasOwnProperty("insuranceFee")
   );
@@ -56,6 +56,7 @@ const Checkout = () => {
   const handlePlaceOrder = async () => {
     const strItemList = [];
     let index = 0;
+    setMinting(true);
     for (const cartItem of cartItems) {
       if (cartItem.hasInsurance) {
         const item = await createInsurance(cartItem);
@@ -102,6 +103,7 @@ const Checkout = () => {
       Best regards,
       Vaultik
     `;
+    setMinting(false);
     if (strItemList.length > 0) {
       sendEmail(emailText);
     } else {
@@ -141,6 +143,7 @@ const Checkout = () => {
             cogoToast.success(alertText, {
               position: "bottom-left",
             });
+            Navigate('/success');
           },
           (err) => {
             cogoToast.error(err.toString() + "FAILED...", {
@@ -194,25 +197,6 @@ const Checkout = () => {
                       </div>
                       <div className="col-lg-12">
                         <div className="billing-info mb-20">
-                          <label>Company Name</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-12">
-                        <div className="billing-select mb-20">
-                          <label>Country</label>
-                          <select>
-                            <option>Select a country</option>
-                            <option>Azerbaijan</option>
-                            <option>Bahamas</option>
-                            <option>Bahrain</option>
-                            <option>Bangladesh</option>
-                            <option>Barbados</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="col-lg-12">
-                        <div className="billing-info mb-20">
                           <label>Street Address</label>
                           <input
                             className="billing-address"
@@ -223,24 +207,6 @@ const Checkout = () => {
                             placeholder="Apartment, suite, unit etc."
                             type="text"
                           />
-                        </div>
-                      </div>
-                      <div className="col-lg-12">
-                        <div className="billing-info mb-20">
-                          <label>Town / City</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>State / County</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>Postcode / ZIP</label>
-                          <input type="text" />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
@@ -349,7 +315,7 @@ const Checkout = () => {
                       <div className="payment-method"></div>
                     </div>
                     <div className="place-order mt-25">
-                      <button className="btn-hover" onClick={handlePlaceOrder}>
+                      <button className="btn-hover" onClick={handlePlaceOrder} disabled={isMinting}>
                         Place Order
                       </button>
                     </div>

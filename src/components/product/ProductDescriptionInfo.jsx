@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductCartQuantity } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
@@ -182,6 +182,12 @@ const ProductDescriptionInfo = ({
           >
             {" "}
             Add To Cart{" "}
+          </button>
+        </div>
+        <div className="pro-details-cart btn-hover">
+          <button onClick={() => Navigate('/checkout')}>
+            {" "}
+            Proceed To Cart{" "}
           </button>
         </div>
         <div className="pro-details-wishlist">

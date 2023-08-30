@@ -112,7 +112,7 @@ const Cart = () => {
                           <tr>
                             <th>Image</th>
                             <th>Product Name</th>
-                            <th>Mint NFT</th>
+                            <th>Digital Passport</th>
                             <th>Unit Price</th>
                             <th>Qty</th>
                             <th>Subtotal</th>

@@ -19,21 +19,12 @@ const HomeFashion = (props) => {
         headerContainerClass="container-fluid"
         headerPaddingClass="header-padding-1"
       >
-        {/* hero slider */}
-        <HeroSliderOne />
-
-        {/* featured icon */}
-        <FeatureIcon spaceTopClass="pt-100" spaceBottomClass="pb-60" />
-
         {/* tab product */}
         <TabProduct
           spaceBottomClass="pb-60"
           category="men"
           products={products}
         />
-
-        {/* blog featured */}
-        <BlogFeatured spaceBottomClass="pb-55" />
       </LayoutOne>
     </Fragment>
   );

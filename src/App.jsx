@@ -27,6 +27,7 @@ const Wishlist = lazy(() => import("./pages/other/Wishlist"));
 const Checkout = lazy(() => import("./pages/other/Checkout"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
+const Success = lazy(() => import("./pages/other/Success"));
 
 const AuthGuard = (props) => {
   const navigate = useNavigate();
@@ -64,31 +65,32 @@ const App = () => {
               path={"/login-register"}
               element={<LoginRegister />}
             />
-            <Route path={"/"} element={<AuthGuard><HomeFashion products={products} /></AuthGuard>} />
+            <Route path={"/"} element={<HomeFashion products={products} />} />
             <Route
               path={"/home-fashion"}
-              element={<AuthGuard><HomeFashion products={products} /></AuthGuard>}
+              element={<HomeFashion products={products} />}
             />
             <Route
               path={"/shop-grid-standard"}
-              element={<AuthGuard><ShopGridStandard products={products} total={total} /></AuthGuard>}
+              element={<ShopGridStandard products={products} total={total} />}
             />
             <Route
               path={"/product/:id"}
-              element={<AuthGuard><Product products={products} /></AuthGuard>}
+              element={<Product products={products} />}
             />
 
-            <Route path={"/blog-no-sidebar"} element={<AuthGuard><BlogNoSidebar /></AuthGuard>} />
+            <Route path={"/blog-no-sidebar"} element={<BlogNoSidebar />} />
             <Route
               path={"/blog-details-standard"}
-              element={<AuthGuard><BlogDetailsStandard /></AuthGuard>}
+              element={<BlogDetailsStandard />}
             />
-            <Route path={"/about-us"} element={<AuthGuard><About /></AuthGuard>} />
-            <Route path={"/contact"} element={<AuthGuard><Contact /></AuthGuard>} />
-            <Route path={"/login-register"} element={<AuthGuard><LoginRegister /></AuthGuard>} />
-            <Route path={"/cart"} element={<AuthGuard><Cart /></AuthGuard>} />
-            <Route path={"/wishlist"} element={<AuthGuard><Wishlist /></AuthGuard>} />
-            <Route path={"/checkout"} element={<AuthGuard><Checkout /></AuthGuard>} />
+            <Route path={"/about-us"} element={<About />} />
+            <Route path={"/contact"} element={<Contact />} />
+            <Route path={"/login-register"} element={<LoginRegister />} />
+            <Route path={"/cart"} element={<Cart />} />
+            <Route path={"/wishlist"} element={<Wishlist />} />
+            <Route path={"/checkout"} element={<Checkout />} />
+            <Route path={"/success"} element={<Success />} />
             <Route
               path="*"
               element={<NotFound />}
