@@ -59,29 +59,13 @@ const Cart = () => {
       [cartItem.id]: !nftCreate[cartItem.id],
     });
 
-    if (cartItem?.insuranceFee) {
-      dispatch(
-        selectInsurance({
-          ...cartItem,
-          hasInsurance: !cartItem.hasInsurance,
-        })
-      );
-    } else {
-      if (user?.email) {
-        dispatch(
-          selectInsurance({
-            ...cartItem,
-            hasInsurance: !cartItem.hasInsurance,
-          })
-        );
-        getInsuranceFee(cartItem);
-      } else {
-        cogoToast.error(
-          "Please login to your account first and then proceed with the payment.",
-          { position: "bottom-left" }
-        );
-      }
-    }
+    dispatch(
+      selectInsurance({
+        ...cartItem,
+        hasInsurance: !cartItem.hasInsurance,
+      })
+    );
+    getInsuranceFee(cartItem);
   };
 
   return (

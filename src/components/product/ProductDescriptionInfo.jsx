@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductCartQuantity } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
@@ -27,6 +27,7 @@ const ProductDescriptionInfo = ({
   const [selectedProductColor, setSelectedProductColor] = useState(
     product?.variation ? product?.variation[0]?.color : ""
   );
+  const navigate = useNavigate();
   const [selectedProductSize, setSelectedProductSize] = useState("x");
   const [productStock, setProductStock] = useState(10);
   const [quantityCount, setQuantityCount] = useState(1);
@@ -185,7 +186,7 @@ const ProductDescriptionInfo = ({
           </button>
         </div>
         <div className="pro-details-cart btn-hover">
-          <button onClick={() => Navigate('/checkout')}>
+          <button onClick={() => navigate('/cart')}>
             {" "}
             Proceed To Cart{" "}
           </button>
