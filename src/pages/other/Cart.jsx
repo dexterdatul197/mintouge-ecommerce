@@ -360,7 +360,7 @@ const Cart = () => {
                           {currency.currencySymbol + cartTotalPrice.toFixed(2)}
                         </span>
                       </h4>
-                      <button onClick={() => dispatch(deleteAllFromCart())}>
+                      <button className="cart-btn-2" onClick={() => dispatch(deleteAllFromCart())}>
                         Clear Shopping Cart
                       </button>
                     </div>

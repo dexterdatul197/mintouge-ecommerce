@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import cogoToast from "cogo-toast";
 import emailjs from "@emailjs/browser";
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
+import { ErrorMessage } from '@hookform/error-message';
 import { getDiscountPrice } from "../../helpers/product";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -21,7 +21,7 @@ const Checkout = () => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [isMinting, setMinting] = useState(false);
-  const { register, handleSubmit } = useForm();  
+  const { register, handleSubmit, formState: { errors } } = useForm();  
   const hasNftList = cartItems.filter((item) =>
     item.hasOwnProperty("insuranceFee")
   );
@@ -163,6 +163,10 @@ const Checkout = () => {
         }
       );
     }
+  };
+
+  const handleError = () => {
+    cogoToast.error("Please input valid email", { position: "bottom-left" });
   };
 
   return (
@@ -330,6 +334,11 @@ const Checkout = () => {
                     </div>
                   </div>
                 </div>
+                <ErrorMessage
+                  errors={errors}
+                  name="email"
+                  render={({ message }) => handleError()}
+                />
               </form>
             ) : (
               <div className="row">
