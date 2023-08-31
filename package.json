@@ -39,6 +39,7 @@
     "yup": "^1.2.0"
   },
   "scripts": {
+    "start": "set GENERATE_SOURCEMAP=false&& vite",
     "dev": "set GENERATE_SOURCEMAP=false&& vite",
     "build": "vite build",
     "serve": "vite preview"
