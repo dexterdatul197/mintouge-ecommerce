@@ -85,6 +85,7 @@ export const getOrderFee = async (productKey) => {
     try {
         const fee = await apiGet({
             url: `/digital-passport/${productKey}/fees`,
+            queryParams: { chain: 'goerli' }
         });
 
         return fee;

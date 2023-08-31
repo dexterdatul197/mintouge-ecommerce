@@ -65,7 +65,8 @@ const Cart = () => {
         hasInsurance: !cartItem.hasInsurance,
       })
     );
-    getInsuranceFee(cartItem);
+    if(nftCreate[cartItem.id])
+      getInsuranceFee(cartItem);
   };
 
   return (
