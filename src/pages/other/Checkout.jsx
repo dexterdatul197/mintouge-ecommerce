@@ -1,15 +1,16 @@
-import { React, Fragment, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import cogoToast from "cogo-toast";
 import emailjs from "@emailjs/browser";
-import { getDiscountPrice } from "../../helpers/product";
+import { React, Fragment, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+
 import SEO from "../../components/seo";
-import LayoutOne from "../../layouts/LayoutOne";
-import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { OrderApi } from "../../services/api";
-import { addDpp } from "../../store/slices/cart-slice";
 import Loading from "../../components/Loading";
+import LayoutOne from "../../layouts/LayoutOne";
+import { getDiscountPrice } from "../../helpers/product";
+import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { addDpp, deleteAllFromCart } from "../../store/slices/cart-slice";
 
 const Checkout = () => {
     let cartTotalPrice = 0;
@@ -183,11 +184,10 @@ const Checkout = () => {
             templateParams,
             "L5aFmmea8_pQLs-mf"
         ).then(() => {
-            const alertText = hasNftList.length > 0
-                ? "Digital Product Passport is stored as an NFT."
-                : "Success";
+            const alertText = "Digital Product Passport is stored as an NFT.";
             cogoToast.success(alertText, { position: "bottom-left" });
             navigate('/success');
+            dispatch(deleteAllFromCart());
         }, (err) => {
             cogoToast.error(err.toString() + "FAILED...", { position: "bottom-left", });
         });
