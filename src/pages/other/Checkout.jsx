@@ -206,22 +206,6 @@ const Checkout = () => {
                               <input type="text" name="l_name"/>
                             </div>
                           </div>
-                          <div className="col-lg-12">
-                            <div className="billing-info mb-20">
-                              <label>Street Address</label>
-                              <input
-                                className="billing-address"
-                                placeholder="House number and street name"
-                                type="text"
-                                name="county"
-                              />
-                              <input
-                                placeholder="Apartment, suite, unit etc."
-                                type="text"
-                                name="street"
-                              />
-                            </div>
-                          </div>
                           <div className="col-lg-6 col-md-6">
                             <div className="billing-info mb-20">
                               <label>Phone</label>
@@ -235,17 +219,6 @@ const Checkout = () => {
                             </div>
                           </div>
                         </div>
-                      <div className="additional-info-wrap">
-                        <h4>Additional information</h4>
-                        <div className="additional-info">
-                          <label>Order notes</label>
-                          <textarea
-                            placeholder="Notes about your order, e.g. special notes for delivery. "
-                            name="message"
-                            defaultValue={""}
-                          />
-                        </div>
-                      </div>
                     </div>
                   </div>
 
