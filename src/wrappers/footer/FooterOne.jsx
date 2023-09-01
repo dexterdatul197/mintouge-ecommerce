@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { Link } from "react-router-dom";
 import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
-import LogoSvg from "@assets/img/logo.svg";
 
 const FooterOne = ({
   backgroundColorClass,
@@ -25,7 +24,7 @@ const FooterOne = ({
           >
             {/* footer copyright */}
             <FooterCopyright
-              footerLogo={LogoSvg}
+              footerLogo="https://cdn.mintouge.com/mini-web/assets/store_logo.svg"
               spaceBottomClass="mb-30"
             />
           </div>
