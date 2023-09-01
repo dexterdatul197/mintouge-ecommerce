@@ -29,17 +29,6 @@ const Checkout = lazy(() => import("./pages/other/Checkout"));
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 const Success = lazy(() => import("./pages/other/Success"));
 
-const AuthGuard = (props) => {
-  const navigate = useNavigate();
-  const user = localStorage.getItem("demoUser");
-
-  if (!user) {
-    navigate("/login-register");
-  }
-  return <React.Fragment>{props.children}</React.Fragment>;
-};
-
-
 const App = () => {
   const { products, total, fetchProducts } = useProducts();
 

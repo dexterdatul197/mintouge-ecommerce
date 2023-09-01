@@ -1,5 +1,5 @@
 import { React, Fragment, useState } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import cogoToast from "cogo-toast";
 import emailjs from "@emailjs/browser";
@@ -14,10 +14,12 @@ import Loading from "../../components/Loading";
 const Checkout = () => {
     let cartTotalPrice = 0;
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     let { pathname } = useLocation();
     const currency = useSelector((state) => state.currency);
-    const { cartItems } = useSelector((state) => state.cart);
-    const dispatch = useDispatch();
+    const { cartItems } = useSelector((state) => state.cart)
+    ;
     const [isMinting, setMinting] = useState(false);
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -185,7 +187,7 @@ const Checkout = () => {
                 ? "Digital Product Passport is stored as an NFT."
                 : "Success";
             cogoToast.success(alertText, { position: "bottom-left" });
-            Navigate('/success');
+            navigate('/success');
         }, (err) => {
             cogoToast.error(err.toString() + "FAILED...", { position: "bottom-left", });
         });
