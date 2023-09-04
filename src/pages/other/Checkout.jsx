@@ -20,7 +20,7 @@ const Checkout = () => {
     let { pathname } = useLocation();
     const currency = useSelector((state) => state.currency);
     const { cartItems } = useSelector((state) => state.cart)
-    ;
+        ;
     const [isMinting, setMinting] = useState(false);
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -237,6 +237,23 @@ const Checkout = () => {
                                                     />
                                                 </div>
                                             </div>
+
+                                            <div className="col-lg-12">
+                                                <div className="billing-info mb-20">
+                                                    <label>Street Address</label>
+                                                    <input
+                                                        className="billing-address"
+                                                        placeholder="House number and street name"
+                                                        type="text"
+                                                        name="county"
+                                                    />
+                                                    <input
+                                                        placeholder="Apartment, suite, unit etc."
+                                                        type="text"
+                                                        name="street"
+                                                    />
+                                                </div>
+                                            </div>
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="billing-info mb-20">
                                                     <label>Phone</label>
@@ -335,7 +352,7 @@ const Checkout = () => {
                                         </div>
                                         <div className="place-order mt-25">
                                             <button className="btn-hover" onClick={handlePlaceOrder} disabled={isMinting}>
-                                                {isMinting ? <Loading />  : "Place Order"}
+                                                {isMinting ? <Loading /> : "Place Order"}
                                             </button>
                                         </div>
                                     </div>
