@@ -185,7 +185,7 @@ const ProductDescriptionInfo = ({
             Add To Cart{" "}
           </button>
         </div>
-        <div className="pro-details-cart btn-hover">
+        <div className="pro-details-cart btn-hover default">
           <button onClick={() => navigate('/cart')}>
             {" "}
             Proceed To Cart{" "}
