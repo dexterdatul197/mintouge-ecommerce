@@ -6,7 +6,7 @@ const Logo = ({ imageUrl, logoClass }) => {
   return (
     <div className={clsx(logoClass)}>
       <Link to={"/"}>
-        <img alt="" src={imageUrl} width="250px"/>
+        <img className="logo-image" alt="" src={imageUrl}/>
       </Link>
     </div>
   );

@@ -90,6 +90,14 @@
     padding: 20px 0 15px;
   }
 }
+
+.logo-image {
+  width: 250px;
+  @media #{$xs-layout} {
+    width: 150px;
+  }
+}
+
 .logo {
   margin-top: 32px;
   @media #{$md-layout} {
@@ -1167,6 +1175,7 @@
   .logo {
     margin-top: 0;
     padding: 0 0 0 108px;
+    width: 250px;
     @media #{$xx-layout} {
       padding: 0 0 0 50px;
     }

@@ -7,7 +7,7 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
     <div className={clsx("copyright", spaceBottomClass, colorClass)}>
       <div className="footer-logo">
         <Link to={"/"}>
-          <img alt="" width="100%" src={footerLogo} />
+          <img alt="" width="100%" src={footerLogo} style={{ maxWidth: "200px" }} />
         </Link>
       </div>
       <p>

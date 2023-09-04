@@ -39,7 +39,7 @@ const FooterOne = ({
               <div className="footer-list">
                 <ul>
                   <li>
-                    <Link to={"/about"}>About us</Link>
+                    <Link to={"/#"}>About us</Link>
                   </li>
                   <li>
                     <Link to={"#/"}>
@@ -47,7 +47,7 @@ const FooterOne = ({
                     </Link>
                   </li>
                   <li>
-                    <Link to={"/contact"}>
+                    <Link to={"/#"}>
                       Contact
                     </Link>
                   </li>
@@ -110,8 +110,7 @@ const FooterOne = ({
                 <ul>
                   <li>
                     <a
-                      href="//www.facebook.com"
-                      target="_blank"
+                      href="/#"
                       rel="noopener noreferrer"
                     >
                       Facebook
@@ -119,8 +118,7 @@ const FooterOne = ({
                   </li>
                   <li>
                     <a
-                      href="//www.twitter.com"
-                      target="_blank"
+                      href="/#"
                       rel="noopener noreferrer"
                     >
                       Twitter
@@ -128,8 +126,7 @@ const FooterOne = ({
                   </li>
                   <li>
                     <a
-                      href="//www.instagram.com"
-                      target="_blank"
+                      href="/#"
                       rel="noopener noreferrer"
                     >
                       Instagram
@@ -137,8 +134,7 @@ const FooterOne = ({
                   </li>
                   <li>
                     <a
-                      href="//www.youtube.com"
-                      target="_blank"
+                      href="/#"
                       rel="noopener noreferrer"
                     >
                       Youtube
