@@ -29,18 +29,6 @@ const Success = () => {
                   <h3>Congratulations!</h3>
                   <p>
                     Check the email we've just sent to unlock the Digital Identity of your new luxury product!                  </p>
-                  <form className="searchform mb-50">
-                    <input
-                      type="text"
-                      name="search"
-                      id="error_search"
-                      placeholder="Search..."
-                      className="searchform__input"
-                    />
-                    <button type="submit" className="searchform__submit">
-                      <i className="fa fa-search" />
-                    </button>
-                  </form>
                   <Link to={"/"} className="error-btn">
                     Back to home page
                   </Link>
