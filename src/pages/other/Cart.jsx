@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import cogoToast from "cogo-toast";
 import SEO from "../../components/seo";
+import LoadingModal from "../../components/loading/LoadingModal";
 import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
@@ -24,13 +25,13 @@ const Cart = () => {
   const [quantityCount] = useState(1);
   const dispatch = useDispatch();
   let { pathname } = useLocation();
-  const { user } = useSelector((state) => state.user);
-  const [nftCreate, setNftCreat] = useState({});
 
+  const [isLoading, setLoading] = useState(false);
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
 
   const getInsuranceFee = async (cartItem) => {
+    setLoading(true);
     let fee = 0;
     try {
       const _fee = await OrderApi.getOrderFee(cartItem.productKey);
@@ -49,15 +50,11 @@ const Cart = () => {
       cogoToast.error("Get Fee failed: " + error.toString() + " error", {
         position: "bottom-left",
       });
-      return;
     }
+    setLoading(false);
   };
 
   const handleCreateNFT = (cartItem) => {
-    setNftCreat({
-      ...nftCreate,
-      [cartItem.id]: !nftCreate[cartItem.id],
-    });
 
     dispatch(
       selectInsurance({
@@ -65,7 +62,8 @@ const Cart = () => {
         hasInsurance: !cartItem.hasInsurance,
       })
     );
-    if(nftCreate[cartItem.id])
+
+    if(!cartItem.insuranceFee)
       getInsuranceFee(cartItem);
   };
 
@@ -74,6 +72,12 @@ const Cart = () => {
       <SEO
         titleTemplate="Cart"
         description="Cart page of vaultik react minimalist eCommerce template."
+      />
+
+      <LoadingModal 
+        show={isLoading}
+        title="Loading.."
+        message="Fetching insurance fee. Please wait..."
       />
 
       <LayoutOne headerTop="visible">
@@ -98,7 +102,8 @@ const Cart = () => {
                             <th>Image</th>
                             <th>Product Name</th>
                             <th>Digital Passport</th>
-                            <th>Unit Price</th>
+                            <th>Price</th>
+                            <th>Insurance Fee</th>
                             <th>Qty</th>
                             <th>Subtotal</th>
                             <th>action</th>
@@ -161,11 +166,11 @@ const Cart = () => {
                                   )}
                                 </td>
 
-                                <td>
+                                <td id="digital-passport">
                                   <input
                                     type="checkbox"
                                     style={{ height: "15px" }}
-                                    checked={cartItem.hasInsurance | false}
+                                    checked={cartItem.hasInsurance}
                                     onChange={() => handleCreateNFT(cartItem)}
                                   />
                                 </td>
@@ -184,10 +189,13 @@ const Cart = () => {
                                     </Fragment>
                                   ) : (
                                     <span className="amount">
-                                      {currency.currencySymbol +
-                                        finalProductPrice}
+                                      {cartItem.price}
                                     </span>
                                   )}
+                                </td>
+
+                                <td id="insurancef=-fee" className="product-price-cart">
+                                  {insuranceFee}
                                 </td>
 
                                 <td className="product-quantity">
@@ -231,6 +239,7 @@ const Cart = () => {
                                     </button>
                                   </div>
                                 </td>
+
                                 <td className="product-subtotal">
                                   {discountedPrice !== null
                                     ? currency.currencySymbol +
