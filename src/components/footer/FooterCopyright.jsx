@@ -17,7 +17,7 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
           rel="noopener noreferrer"
           target="_blank"
         >
-          Vaultik
+          LuxDemoStore
         </a>
         .<br /> All Rights Reserved
       </p>

@@ -141,7 +141,7 @@ const Checkout = () => {
             If you have any questions or need further assistance, please contact us.
 
             Best regards,
-            Vaultik
+            LuxDemoStore
         `;
         if (strItemList.length > 0) {
             sendEmail(emailText);
@@ -174,7 +174,7 @@ const Checkout = () => {
         const templateParams = {
             to_email: email,
             to_name: email,
-            from_name: "Vaultik",
+            from_name: "LuxDemoStore",
             message: emailText,
         };
 
