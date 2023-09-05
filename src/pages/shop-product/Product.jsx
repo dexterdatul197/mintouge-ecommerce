@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
 import SEO from "../../components/seo";
@@ -8,19 +8,20 @@ import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
 import useProducts from "../../hooks/use-products";
+import Loading from "../../components/loading/Loading";
 
 const Product = (props) => {
+  const { id } = useParams();
   const { products } = props;
-  let { pathname } = useLocation();
-  let { id } = useParams();
+  const { pathname } = useLocation();
+
+  const [isLoading, setLoading] = useState(false);
   const { product, fetchProduct } = useProducts();
   const { categories } = useSelector((state) => state.category);
-  const category = categories.find(
-    (category) => category.id === product?.categoryId
-  );
+  const category = categories.find((category) => category.id === product?.categoryId);
 
   useEffect(() => {
-    fetchProduct(id);
+    fetchProduct(id, setLoading);
   }, [id]);
 
   return (
@@ -39,25 +40,29 @@ const Product = (props) => {
           ]}
         />
 
-        {/* product description with image */}
-        <ProductImageDescription
-          spaceTopClass="pt-100"
-          spaceBottomClass="pb-100"
-          product={product}
-        />
+        {isLoading
+          ? <Loading styles={{ minHeight: "500px" }} />
+          : <>
+            {/* product description with image */}
+            <ProductImageDescription
+              spaceTopClass="pt-100"
+              spaceBottomClass="pb-100"
+              product={product}
+            />
 
-        {/* product description tab */}
-        <ProductDescriptionTab
-          spaceBottomClass="pb-90"
-          productFullDesc={product?.fullDescription}
-        />
+            {/* product description tab */}
+            <ProductDescriptionTab
+              spaceBottomClass="pb-90"
+              productFullDesc={product?.fullDescription}
+            />
 
-        {/* related product slider */}
-        <RelatedProductSlider
-          spaceBottomClass="pb-95"
-          category={category?.name}
-          products={products}
-        />
+            {/* related product slider */}
+            <RelatedProductSlider
+              spaceBottomClass="pb-95"
+              category={category?.name}
+              products={products}
+            />
+          </>}
       </LayoutOne>
     </Fragment>
   );

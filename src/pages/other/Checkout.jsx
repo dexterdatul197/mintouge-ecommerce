@@ -6,7 +6,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import SEO from "../../components/seo";
 import { OrderApi } from "../../services/api";
-import Loading from "../../components/Loading";
+import LoadingModal from "../../components/loading/LoadingModal";
 import LayoutOne from "../../layouts/LayoutOne";
 import { getDiscountPrice } from "../../helpers/product";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
@@ -19,8 +19,8 @@ const Checkout = () => {
     const navigate = useNavigate();
     let { pathname } = useLocation();
     const currency = useSelector((state) => state.currency);
-    const { cartItems } = useSelector((state) => state.cart)
-        ;
+    const { cartItems } = useSelector((state) => state.cart);
+
     const [isMinting, setMinting] = useState(false);
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -199,6 +199,11 @@ const Checkout = () => {
                 titleTemplate="Checkout"
                 description="Checkout page of vaultik react minimalist eCommerce template."
             />
+            <LoadingModal
+                show={isMinting}
+                title="Loading.."
+                message="Creating Insurance. Please wait..."
+            />
             <LayoutOne headerTop="visible">
                 {/* breadcrumb */}
                 <Breadcrumb
@@ -351,8 +356,8 @@ const Checkout = () => {
                                             <div className="payment-method"></div>
                                         </div>
                                         <div className="place-order mt-25">
-                                            <button className="btn-hover" onClick={handlePlaceOrder} disabled={isMinting}>
-                                                {isMinting ? <Loading /> : "Place Order"}
+                                            <button className="btn-hover" onClick={handlePlaceOrder}>
+                                                Place Order
                                             </button>
                                         </div>
                                     </div>
