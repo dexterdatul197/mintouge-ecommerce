@@ -1,7 +1,5 @@
 import * as yup from 'yup';
 
-// import productsData from "../../data/products.json";
-import { mockProductsData } from '../../data/mockData';
 import { apiGet, apiPost, API_ENDPOINT } from "./baseApi";
 
 export const ProductModelValidator = yup.object().shape({
@@ -74,7 +72,6 @@ export const getProducts = async (page = 0, size = 20, apiKey) => {
         });
 
         await productValidate(response.data);
-        const pageProductsData = mockProductsData.find((pageData) => pageData.page === page);
         return response;
     } catch (error) {
         console.error('[Error] getProducts Failed.', error);

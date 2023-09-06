@@ -64,7 +64,7 @@ const HeaderOne = ({
           <div className="row">
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
               {/* header logo */}
-              <Logo imageUrl="https://cdn.mintouge.com/mini-web/assets/store_logo.svg" logoClass="logo" />
+              <Logo imageUrl="https://cdn.vaultik.com/mini-web/assets/store_logo.svg" logoClass="logo" />
             </div>
             <div className="col-xl-8 col-lg-8 d-none d-lg-block">
               {/* Nav menu */}

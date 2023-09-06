@@ -1,7 +1,5 @@
 import * as yup from 'yup';
 
-// import categoriesData from '../../data/categories.json';
-import { mockCategoriesData } from '../../data/mockData';
 import { apiGet, apiPost } from './baseApi';
 
 export const CategoryModelValidator = yup.object().shape({
@@ -42,10 +40,6 @@ const categoryValidate = async (categorys) => {
  * @returns An array of categorys
  */
 export const getcategories = async (page = 0, size = 100) => {
-    if (import.meta.env.VITE_APP_MOCK_BACKEND === 'true') {
-        return mockCategoriesData;
-    }
-
     try {
         const response = await apiGet({
             url: '/category',
@@ -55,7 +49,6 @@ export const getcategories = async (page = 0, size = 100) => {
         await categoryValidate(response.data);
 
         return response;
-        // return mockCategoriesData;
     } catch (error) {
         console.error('[Error] getCategorys Failed.', error);
         throw error;
@@ -71,10 +64,6 @@ export const getcategories = async (page = 0, size = 100) => {
  * @returns An object to describe details
  */
 export const getCategoryDetail = async (categoryId) => {
-    if (import.meta.env.VITE_APP_MOCK_BACKEND === 'true') {
-        return mockCategoriesData.data.find((_category) => _category.id === categoryId);
-    }
-
     try {
         const category = await apiGet({
             url: '/category',
@@ -97,13 +86,6 @@ export const getCategoryDetail = async (categoryId) => {
  * @returns An added object. Undefined if failed.
  */
 export const addCategory = async (category) => {
-    if (import.meta.env.VITE_APP_MOCK_BACKEND === 'true') {
-        category.id = mockCategoriesData.data[mockCategoriesData.length - 1].id + 1;
-        mockCategoriesData.data.push(category);
-
-        return mockCategoriesData.data[mockCategoriesData.length - 1];
-    }
-
     try {
         const newCategory = await apiPost({
             url: '/category',

@@ -24,7 +24,7 @@ const FooterOne = ({
           >
             {/* footer copyright */}
             <FooterCopyright
-              footerLogo="https://cdn.mintouge.com/mini-web/assets/store_logo.svg"
+              footerLogo="https://cdn.vaultik.com/mini-web/assets/store_logo.svg"
               spaceBottomClass="mb-30"
             />
           </div>
