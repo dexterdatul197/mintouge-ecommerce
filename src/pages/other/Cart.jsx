@@ -50,11 +50,19 @@ const Cart = () => {
       cogoToast.error("Get Fee failed: " + error.toString() + " error", {
         position: "bottom-left",
       });
+      
+      setLoading(false);
+      return false;
     }
+    
     setLoading(false);
+    return true;
   };
 
-  const handleCreateNFT = (cartItem) => {
+  const handleCreateNFT = (cartItem) => {    
+    if(!cartItem.insuranceFee) {
+      if (!getInsuranceFee(cartItem)) return;
+    }
 
     dispatch(
       selectInsurance({
@@ -62,9 +70,6 @@ const Cart = () => {
         hasInsurance: !cartItem.hasInsurance,
       })
     );
-
-    if(!cartItem.insuranceFee)
-      getInsuranceFee(cartItem);
   };
 
   return (
