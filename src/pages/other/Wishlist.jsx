@@ -87,17 +87,17 @@ const Wishlist = () => {
                                     <Fragment>
                                       <span className="amount old">
                                         {currency.currencySymbol +
-                                          finalProductPrice}
+                                          finalProductPrice.toLocaleString()}
                                       </span>
                                       <span className="amount">
                                         {currency.currencySymbol +
-                                          finalDiscountedPrice}
+                                          finalDiscountedPrice.toLocaleString()}
                                       </span>
                                     </Fragment>
                                   ) : (
                                     <span className="amount">
                                       {currency.currencySymbol +
-                                        finalProductPrice}
+                                        finalProductPrice.toLocaleString()}
                                     </span>
                                   )}
                                 </td>

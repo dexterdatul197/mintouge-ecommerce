@@ -52,13 +52,13 @@ const ProductDescriptionInfo = ({
       <div className="product-details-price">
         {discountedPrice !== null ? (
           <Fragment>
-            <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
+            <span>{currency.currencySymbol + finalDiscountedPrice.toLocaleString()}</span>{" "}
             <span className="old">
-              {currency.currencySymbol + finalProductPrice}
+              {currency.currencySymbol + finalProductPrice.toLocaleString()}
             </span>
           </Fragment>
         ) : (
-          <span>{currency.currencySymbol + finalProductPrice} </span>
+          <span>{currency.currencySymbol + finalProductPrice.toLocaleString()} </span>
         )}
       </div>
       {product?.rating && product?.rating > 0 ? (

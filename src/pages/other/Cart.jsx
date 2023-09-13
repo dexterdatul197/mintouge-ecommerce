@@ -107,7 +107,7 @@ const Cart = () => {
                           <tr>
                             <th>Image</th>
                             <th>Product Name</th>
-                            <th>Digital Passport</th>
+                            <th>E-Certificate</th>
                             <th>Price</th>
                             <th>E-Certificate Passport price</th>
                             <th>Qty</th>
@@ -182,21 +182,21 @@ const Cart = () => {
                                   {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
-                                        {currency.currencySymbol + cartItem.price}
+                                        {currency.currencySymbol + cartItem.price.toLocaleString()}
                                       </span>
                                       <span className="amount">
-                                        {currency.currencySymbol + discountedPrice}
+                                        {currency.currencySymbol + discountedPrice.toLocaleString()}
                                       </span>
                                     </Fragment>
                                   ) : (
                                     <span className="amount">
-                                      {currency.currencySymbol + cartItem.price}
+                                      {currency.currencySymbol + cartItem.price.toLocaleString()}
                                     </span>
                                   )}
                                 </td>
 
                                 <td id="insurancef=-fee" className="product-price-cart">
-                                  {currency.currencySymbol + insuranceFee}
+                                  {currency.currencySymbol + insuranceFee.toLocaleString()}
                                 </td>
 
                                 <td className="product-quantity">
@@ -246,11 +246,11 @@ const Cart = () => {
                                     ? currency.currencySymbol +
                                     (
                                       finalDiscountedPrice * cartItem.quantity
-                                    ).toFixed(2)
+                                    ).toLocaleString()
                                     : currency.currencySymbol +
                                     (
                                       finalProductPrice * cartItem.quantity
-                                    ).toFixed(2)}
+                                    ).toLocaleString()}
                                 </td>
 
                                 <td className="product-remove">

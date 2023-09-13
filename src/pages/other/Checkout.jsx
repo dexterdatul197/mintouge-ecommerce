@@ -129,7 +129,7 @@ const Checkout = () => {
                     ? finalDiscountedPrice * item.quantity
                     : finalProductPrice * item.quantity;
 
-                strItemList.push(`${index + 1}. ${item.name} - Quantity: ${item.quantity}, Price: ${currency.currencySymbol + finalProductTotalPrice.toFixed(2)
+                strItemList.push(`${index + 1}. ${item.name} - Quantity: ${item.quantity}, Price: ${currency.currencySymbol + finalProductTotalPrice.toLocaleString()
                     }, ${dppText} ${redeemCodeText}`);
             }
 
@@ -331,11 +331,11 @@ const Checkout = () => {
                                                                             (
                                                                                 finalDiscountedPrice *
                                                                                 cartItem.quantity
-                                                                            ).toFixed(2)
+                                                                            ).toLocaleString()
                                                                             : currency.currencySymbol +
                                                                             (
                                                                                 finalProductPrice * cartItem.quantity
-                                                                            ).toFixed(2)}
+                                                                            ).toLocaleString()}
                                                                     </span>
                                                                 </li>
                                                             );
@@ -353,7 +353,7 @@ const Checkout = () => {
                                                         <li className="order-total">Total</li>
                                                         <li>
                                                             {currency.currencySymbol +
-                                                                cartTotalPrice.toFixed(2)}
+                                                                cartTotalPrice.toLocaleString()}
                                                         </li>
                                                     </ul>
                                                 </div>
