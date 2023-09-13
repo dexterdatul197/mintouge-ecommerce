@@ -29,6 +29,7 @@ const Cart = () => {
   const [isLoading, setLoading] = useState(false);
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
+  const { rewards } = useSelector((state) => state.reward);
 
   const getInsuranceFee = async (cartItem) => {
     setLoading(true);
@@ -50,17 +51,17 @@ const Cart = () => {
       cogoToast.error("Get Fee failed: " + error.toString() + " error", {
         position: "bottom-left",
       });
-      
+
       setLoading(false);
       return false;
     }
-    
+
     setLoading(false);
     return true;
   };
 
-  const handleCreateNFT = (cartItem) => {    
-    if(!cartItem.insuranceFee) {
+  const handleCreateNFT = (cartItem) => {
+    if (!cartItem.insuranceFee) {
       if (!getInsuranceFee(cartItem)) return;
     }
 
@@ -79,7 +80,7 @@ const Cart = () => {
         description="Cart page of vaultik react minimalist eCommerce template."
       />
 
-      <LoadingModal 
+      <LoadingModal
         show={isLoading}
         title="Loading.."
         message="Fetching insurance fee. Please wait..."
@@ -108,7 +109,7 @@ const Cart = () => {
                             <th>Product Name</th>
                             <th>Digital Passport</th>
                             <th>Price</th>
-                            <th>Insurance Fee</th>
+                            <th>E-Certificate Passport price</th>
                             <th>Qty</th>
                             <th>Subtotal</th>
                             <th>action</th>
@@ -116,10 +117,7 @@ const Cart = () => {
                         </thead>
                         <tbody>
                           {cartItems.map((cartItem, key) => {
-                            const discountedPrice = getDiscountPrice(
-                              cartItem.price,
-                              cartItem.discount
-                            );
+                            const discountedPrice = getDiscountPrice(cartItem, rewards);
 
                             const insuranceFee = cartItem.insuranceFee
                               ? cartItem.hasInsurance
@@ -184,23 +182,21 @@ const Cart = () => {
                                   {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
-                                        {currency.currencySymbol +
-                                          finalProductPrice}
+                                        {currency.currencySymbol + cartItem.price}
                                       </span>
                                       <span className="amount">
-                                        {currency.currencySymbol +
-                                          finalDiscountedPrice}
+                                        {currency.currencySymbol + discountedPrice}
                                       </span>
                                     </Fragment>
                                   ) : (
                                     <span className="amount">
-                                      {cartItem.price}
+                                      {currency.currencySymbol + cartItem.price}
                                     </span>
                                   )}
                                 </td>
 
                                 <td id="insurancef=-fee" className="product-price-cart">
-                                  {insuranceFee}
+                                  {currency.currencySymbol + insuranceFee}
                                 </td>
 
                                 <td className="product-quantity">

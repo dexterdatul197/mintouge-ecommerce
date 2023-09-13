@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Fragment, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { getDiscountPrice } from "../../helpers/product";
@@ -17,8 +17,9 @@ const ProductGridListSingle = ({
   compareItem,
   spaceBottomClass,
 }) => {
+  const { rewards } = useSelector((state) => state.reward);
   const [modalShow, setModalShow] = useState(false);
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
+  const discountedPrice = getDiscountPrice(product, rewards);
   const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate

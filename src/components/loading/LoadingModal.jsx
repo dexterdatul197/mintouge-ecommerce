@@ -1,26 +1,14 @@
 import { Modal } from "react-bootstrap";
+import Loading from "./Loading";
 
-const LoadingModal = ({ title, message, show, onHide, hasClose }) => {
-
-    const onCloseModal = () => {
-        onHide && onHide();
-    };
-
+const LoadingModal = ({ show }) => {
     return (
         <Modal
             show={show}
-            onHide={onCloseModal}
-            className="d-flex align-items-center justify-content-center"
-            style={{ height: "100vh" }}
+            className="load-modal-wrapper"
         >
-            {title &&
-                <Modal.Header className="cart-page-title" closeButton={hasClose}>
-                    <h3>{title}</h3>
-                </Modal.Header>
-            }
-
             <div className="modal-body">
-                <h4>{message}</h4>
+                <Loading classes="text-white" />
             </div>
         </Modal>
     );

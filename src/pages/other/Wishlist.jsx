@@ -18,6 +18,7 @@ const Wishlist = () => {
   const currency = useSelector((state) => state.currency);
   const { wishlistItems } = useSelector((state) => state.wishlist);
   const { cartItems } = useSelector((state) => state.cart);
+  const { rewards } = useSelector((state) => state.reward);
 
   return (
     <Fragment>
@@ -53,10 +54,7 @@ const Wishlist = () => {
                         </thead>
                         <tbody>
                           {wishlistItems.map((wishlistItem, key) => {
-                            const discountedPrice = getDiscountPrice(
-                              wishlistItem.price,
-                              wishlistItem.discount
-                            );
+                            const discountedPrice = getDiscountPrice(wishlistItem, rewards);
                             const finalProductPrice = (
                               wishlistItem.price * currency.currencyRate
                             ).toFixed(2);

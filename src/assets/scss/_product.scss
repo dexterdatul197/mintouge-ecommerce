@@ -4373,10 +4373,18 @@
   }
 }
 
-.product-quickview-modal-wrapper {
+.load-modal-wrapper {
+  height: 100vh;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
   .modal-dialog {
-    margin: 5% auto;
-    padding: 0;
+    background: transparent !important;
+    .modal-content {
+      background-color: transparent !important;
+      border: none !important;
+    }
   }
 }
 

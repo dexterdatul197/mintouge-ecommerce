@@ -26,7 +26,22 @@ export const getProducts = (products, categories, category, type, limit) => {
 };
 
 // get product discount price
-export const getDiscountPrice = (price, discount) => {
+export const getDiscountPrice = (product, rewards) => {
+  if (!product) return null;
+  
+  // Filter Discount Rewards only
+  const discountRewards = rewards.filter(_reward => _reward.category === "Discount");
+  
+  // Filter Rewards that contains the current product
+  const _rewards = discountRewards.filter(_reward => (
+    _reward.applyToProductIds.includes(product.id)
+  ));
+
+  // Find the best reward discount
+  const discount = Math.max(_rewards.map(_reward => _reward.discount));
+
+  const price = product.price;
+  
   return discount && discount > 0 ? price - price * (discount / 100) : null;
 };
 

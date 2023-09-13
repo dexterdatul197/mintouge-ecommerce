@@ -17,6 +17,7 @@ import compareReducer from "./slices/compare-slice";
 import wishlistReducer from "./slices/wishlist-slice";
 import categoryReducer from "./slices/category-slice";
 import userSlice from './slices/user-slice';
+import rewardSlice from './slices/reward-slice';
 
 const persistConfig = {
     key: "vaultik",
@@ -33,6 +34,7 @@ export const rootReducer = combineReducers({
     compare: compareReducer,
     wishlist: wishlistReducer,
     category: categoryReducer,
+    reward: rewardSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

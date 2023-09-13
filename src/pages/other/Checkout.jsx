@@ -20,9 +20,11 @@ const Checkout = () => {
     let { pathname } = useLocation();
     const currency = useSelector((state) => state.currency);
     const { cartItems } = useSelector((state) => state.cart);
+    const { user } = useSelector((state) => state.user);
+    const { rewards } = useSelector((state) => state.reward);
 
     const [isMinting, setMinting] = useState(false);
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState(user?.email || "");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [phone, setPhone] = useState("");
@@ -35,7 +37,10 @@ const Checkout = () => {
         try {
             const dpp = String(Date.now());
             const order = {
-                productInfo: cartItem,
+                productInfo: {
+                    ...cartItem,
+                    price:  getDiscountPrice(cartItem, rewards)
+                },
                 consumerInfo: {
                     email: email,
                     phone: phone,
@@ -104,7 +109,7 @@ const Checkout = () => {
 
                 if (!item) continue;
 
-                const discountedPrice = getDiscountPrice(item.price, item.discount);
+                const discountedPrice = getDiscountPrice(item, rewards);
                 const insuranceFee = item.insuranceFee ? (item.hasInsurance ? item.insuranceFee : 0) : 0;
                 const finalProductPrice = (
                     item.price * currency.currencyRate +
@@ -299,7 +304,7 @@ const Checkout = () => {
                                                 <div className="your-order-middle">
                                                     <ul>
                                                         {cartItems.map((cartItem, key) => {
-                                                            const discountedPrice = cartItem.price;
+                                                            const discountedPrice = getDiscountPrice(cartItem, rewards);
                                                             const insuranceFee = cartItem.hasInsurance ? cartItem.insuranceFee : 0;
                                                             const finalProductPrice = (
                                                                 cartItem.price * currency.currencyRate +

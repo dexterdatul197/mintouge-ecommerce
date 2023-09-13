@@ -7,6 +7,7 @@ import { deleteFromCart } from "../../../store/slices/cart-slice";
 const MenuCart = () => {
   const dispatch = useDispatch();
   const currency = useSelector((state) => state.currency);
+  const { rewards } = useSelector((state) => state.reward);
   const { cartItems } = useSelector((state) => state.cart);
   let cartTotalPrice = 0;
 
@@ -16,10 +17,7 @@ const MenuCart = () => {
         <Fragment>
           <ul>
             {cartItems.map((item) => {
-              const discountedPrice = getDiscountPrice(
-                item.price,
-                item.discount
-              );
+              const discountedPrice = getDiscountPrice(item, rewards);
               const insuranceFee = item.insuranceFee
                 ? item.hasInsurance
                   ? item.insuranceFee
@@ -41,7 +39,7 @@ const MenuCart = () => {
                 <li className="single-shopping-cart" key={item.cartItemId}>
                   <div className="shopping-cart-img">
                     <Link to={"/product/" + item.id}>
-                      <img alt="" src={item?.images?.length > 0 ? item.images[0]: ""} className="img-fluid" />
+                      <img alt="" src={item?.images?.length > 0 ? item.images[0] : ""} className="img-fluid" />
                     </Link>
                   </div>
                   <div className="shopping-cart-title">

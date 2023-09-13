@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import cogoToast from "cogo-toast";
@@ -9,21 +9,31 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { setUser } from "../../store/slices/user-slice";
 import { SetStorageItem } from "../../utils";
+import { deleteAllFromCart } from "../../store/slices/cart-slice";
+import { setRewards } from "../../store/slices/reward-slice";
+import useRewards from "../../hooks/use-rewards";
 
 const LoginRegister = () => {
   let { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isIncorrect, SetIsIncorrect] = useState(false);
+  const { isLoading, fetchRewards } = useRewards();
 
-  const optedUser = localStorage.getItem("demoUser");
-  if (optedUser) {
-    navigate("/");
-  }
+  // const optedUser = localStorage.getItem("demoUser");
+  // if (optedUser) {
+  //   fetchRewards(optedUser.email)
+  //     .then(rewards => {
+  //       dispatch(setRewards(rewards));
+  //       navigate("/");
+  //     })
+  //     .catch(error => {
+  //       cogoToast.error("Fetching Rewards failed.");
+  //     });
+  // }
 
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -37,7 +47,7 @@ const LoginRegister = () => {
     setEmail(e.target.value);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (email.length > 0 && password.length > 0) {
       dispatch(
@@ -51,6 +61,17 @@ const LoginRegister = () => {
         email: email,
         password: password,
       });
+
+      dispatch(deleteAllFromCart());
+
+      // fetch 
+      try {
+        const rewards = await fetchRewards(email);
+        dispatch(setRewards(rewards));
+      } catch (error) {
+        cogoToast.error("Fetching Rewards failed.");
+      }
+
       navigate("/");
     } else {
       cogoToast.error("Please Enter Your Email or Password");
