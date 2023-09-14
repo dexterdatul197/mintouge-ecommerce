@@ -231,8 +231,9 @@ const Checkout = () => {
                                                     <input
                                                         value={firstName}
                                                         type="text"
-                                                        name="email"
+                                                        name="firstName"
                                                         onChange={handleFirstNameChange}
+                                                        placeholder="First Name"
                                                     />
                                                 </div>
                                             </div>
@@ -244,6 +245,7 @@ const Checkout = () => {
                                                         type="text"
                                                         name="lastName"
                                                         onChange={handleLastNameChange}
+                                                        placeholder="Last Name"
                                                     />
                                                 </div>
                                             </div>
@@ -255,12 +257,12 @@ const Checkout = () => {
                                                         className="billing-address"
                                                         placeholder="House number and street name"
                                                         type="text"
-                                                        name="county"
+                                                        name="address1"
                                                     />
                                                     <input
                                                         placeholder="Apartment, suite, unit etc."
                                                         type="text"
-                                                        name="street"
+                                                        name="address2"
                                                     />
                                                 </div>
                                             </div>
@@ -272,6 +274,7 @@ const Checkout = () => {
                                                         type="text"
                                                         name="phone"
                                                         onChange={handlePhoneChange}
+                                                        placeholder="Phone Number"
                                                     />
                                                 </div>
                                             </div>
@@ -283,6 +286,7 @@ const Checkout = () => {
                                                         type="text"
                                                         name="email"
                                                         onChange={handleEmailChange}
+                                                        placeholder="Email Address"
                                                     />
                                                 </div>
                                             </div>
