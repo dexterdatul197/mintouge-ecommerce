@@ -138,7 +138,7 @@ const LoginRegister = () => {
                                 <div className="login-toggle-btn">
                                   <input type="checkbox" />
                                   <label className="ml-10">Remember me</label>
-                                  <Link to={"/"}>Forgot Password?</Link>
+                                  <Link to={"#"}>Forgot Password?</Link>
                                 </div>
                                 <button type="submit">
                                   <span>Login</span>

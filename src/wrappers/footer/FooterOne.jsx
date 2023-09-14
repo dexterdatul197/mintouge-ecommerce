@@ -53,7 +53,7 @@ const FooterOne = ({
                   </li>
                   <li>
                     <Link to={"#/"}>
-                      Orders tracking
+                      Order tracking
                     </Link>
                   </li>
                 </ul>

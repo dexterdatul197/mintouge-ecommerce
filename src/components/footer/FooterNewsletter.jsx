@@ -15,7 +15,7 @@ const FooterNewsletter = ({
         <h3>SUBSCRIBE</h3>
       </div>
       <div className={clsx("subscribe-style", colorClass)}>
-        <p>Get E-mail updates about our latest shop and special offers.</p>
+        <p>Receive emails about latest updates and special offers.</p>
         {/* subscribe email */}
         <SubscribeEmail mailchimpUrl="//devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef" />
       </div>
