@@ -8,7 +8,7 @@ const HeaderTop = ({ borderStyle }) => {
     <div className={clsx("header-top-wap", borderStyle === "fluid-border" && "border-bottom")}>
       <div className="header-offer">
         <p>
-          Free delivery on order over{" "}
+          Free delivery on orders over{" "}
           <span>
             {currency.currencySymbol + (200 * currency.currencyRate).toFixed(2)}
           </span>
