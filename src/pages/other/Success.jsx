@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Link, useLocation } from "react-router-dom"; 
+import { Link, useLocation } from "react-router-dom";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
@@ -15,11 +15,11 @@ const Success = () => {
       />
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
-        <Breadcrumb 
+        <Breadcrumb
           pages={[
-            {label: "Home", path: "/" },
-            {label: "Success", path: pathname }
-          ]} 
+            { label: "Home", path: "/" },
+            { label: "Success", path: pathname }
+          ]}
         />
         <div className="success-area pt-40 pb-100">
           <div className="container">
@@ -28,7 +28,9 @@ const Success = () => {
                 <div className="success">
                   <h3>Congratulations!</h3>
                   <p>
-                    Check the email we've just sent to unlock the Digital Identity of your new luxury product!                  </p>
+                    Your order is confirmed. <br />
+                    Check the email we've just sent to you to unlock the Digital Identity of your new luxury product!
+                  </p>
                   <Link to={"/"} className="error-btn">
                     Back to home page
                   </Link>
