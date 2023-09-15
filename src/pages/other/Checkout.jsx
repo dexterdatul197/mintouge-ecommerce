@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import SEO from "../../components/seo";
-import { EmailApi } from "../../services/api";
+import { OrderApi, EmailApi } from "../../services/api";
 import LoadingModal from "../../components/loading/LoadingModal";
 import LayoutOne from "../../layouts/LayoutOne";
 import { getDiscountPrice } from "../../helpers/product";
@@ -49,6 +49,7 @@ const Checkout = () => {
                 dpp: dpp,
                 redeemCode: dpp,
             };
+            console.log(order);
 
             await OrderApi.addOrder(order);
             const _cartItem = {
@@ -56,6 +57,7 @@ const Checkout = () => {
                 dpp: order.dpp,
                 redeemCode: order.redeemCode,
             };
+            console.log(_cartItem);
             dispatch(addDpp(_cartItem));
             return _cartItem;
         } catch (error) {
@@ -109,7 +111,10 @@ const Checkout = () => {
             if (cartItem.hasInsurance) {
                 const item = await createInsurance(cartItem);
 
-                if (!item) continue;
+                if (!item) {
+                    setMinting(false);
+                    return;
+                };
 
                 const discountedPrice = getDiscountPrice(item, rewards);
                 const insuranceFee = item.insuranceFee ? (item.hasInsurance ? item.insuranceFee : 0) : 0;
@@ -167,29 +172,6 @@ const Checkout = () => {
 
         setMinting(false);
     }
-
-    const sendEmail = (emailText) => {
-        const templateParams = {
-            to_email: email,
-            to_name: email,
-            from_name: "LuxDemoStore",
-            message: emailText,
-        };
-
-        emailjs.send(
-            "service_zj2blbg",
-            "template_9y4oc44",
-            templateParams,
-            "L5aFmmea8_pQLs-mf"
-        ).then(() => {
-            const alertText = "Digital Product Passport is stored as an NFT.";
-            cogoToast.success(alertText, { position: "bottom-left" });
-            navigate('/success');
-            dispatch(deleteAllFromCart());
-        }, (err) => {
-            cogoToast.error(err.toString() + "FAILED...", { position: "bottom-left", });
-        });
-    };
 
     return (
         <Fragment>
