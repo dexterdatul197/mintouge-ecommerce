@@ -1,11 +1,10 @@
 import cogoToast from "cogo-toast";
-import emailjs from "@emailjs/browser";
 import { React, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import SEO from "../../components/seo";
-import { OrderApi } from "../../services/api";
+import { EmailApi } from "../../services/api";
 import LoadingModal from "../../components/loading/LoadingModal";
 import LayoutOne from "../../layouts/LayoutOne";
 import { getDiscountPrice } from "../../helpers/product";
@@ -28,10 +27,8 @@ const Checkout = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [phone, setPhone] = useState("");
-
-    const hasNftList = cartItems.filter((item) =>
-        item.hasOwnProperty("insuranceFee")
-    );
+    const [address1, setAddress1] = useState("");
+    const [address2, setAddress2] = useState("");
 
     const createInsurance = async (cartItem) => {
         try {
@@ -39,7 +36,7 @@ const Checkout = () => {
             const order = {
                 productInfo: {
                     ...cartItem,
-                    price:  getDiscountPrice(cartItem, rewards)
+                    price: getDiscountPrice(cartItem, rewards)
                 },
                 consumerInfo: {
                     email: email,
@@ -62,7 +59,7 @@ const Checkout = () => {
             dispatch(addDpp(_cartItem));
             return _cartItem;
         } catch (error) {
-            cogoToast.error(error.toString() + " error", { position: "bottom-left" });
+            cogoToast.error("Creating an E-Certificate failed." + error.toString(), { position: "bottom-left" });
             return undefined;
         }
     };
@@ -103,6 +100,11 @@ const Checkout = () => {
         const strItemList = [];
         let index = 0;
         setMinting(true);
+        const templateData = {
+            "invoiceNumber": `#invoice-${String(Date.now()).split('').reverse().join('')}`,
+            "date": (new Date()).toLocaleDateString(),
+            "products": []
+        };
         for (const cartItem of cartItems) {
             if (cartItem.hasInsurance) {
                 const item = await createInsurance(cartItem);
@@ -120,59 +122,50 @@ const Checkout = () => {
                     insuranceFee
                 ).toFixed(2);
 
-                const dppText = item?.dpp ? `DPP: ${item?.dpp},` : "";
-                const redeemCodeText = item?.redeemCode
-                    ? `RedeemCode: ${item?.redeemCode}`
-                    : "";
+                const dppText = item?.dpp ? `${item?.dpp}` : "-";
 
                 const finalProductTotalPrice = discountedPrice != null
                     ? finalDiscountedPrice * item.quantity
                     : finalProductPrice * item.quantity;
 
-                strItemList.push(`${index + 1}. ${item.name} - Quantity: ${item.quantity}, Price: ${currency.currencySymbol + finalProductTotalPrice.toLocaleString()
-                    }, ${dppText} ${redeemCodeText}`);
+                templateData["products"].push({
+                    "name": item.name,
+                    "count": item.quantity,
+                    "price": currency.currencySymbol + finalProductTotalPrice.toLocaleString(),
+                    "dpp": dppText
+                });
             }
 
             index++;
         }
-
-        const emailText = `
-            Dear Customer,
-
-            Thank you for your order. Here are the details of your purchase:
-
-            ${strItemList.join("\n")}
-
-            If you have any questions or need further assistance, please contact us.
-
-            Best regards,
-            LuxDemoStore
-        `;
         if (strItemList.length > 0) {
-            sendEmail(emailText);
-        } else {
             cogoToast.error(
                 "No product was purchased. :(",
                 { position: "bottom-center" }
             );
+
+            setMinting(false);
+            return;
         }
+
+        try {
+            const options = {
+                from: "noreply@vaultik.com",
+                to: email,
+                templateId: import.meta.env.VITE_SENDGRID_TEMPLATE_ID,
+                dynamic_template_data: templateData
+            };
+            await EmailApi.sendEmail(JSON.stringify(options));
+
+            const alertText = "Digital Product Passport is stored as an NFT.";
+            cogoToast.success(alertText, { position: "bottom-left" });
+            navigate('/success');
+            dispatch(deleteAllFromCart());
+        } catch (err) {
+            cogoToast.error(err.toString() + "FAILED...", { position: "bottom-left", });
+        }
+
         setMinting(false);
-    }
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    }
-
-    const handleFirstNameChange = (e) => {
-        setFirstName(e.target.value);
-    }
-
-    const handleLastNameChange = (e) => {
-        setLastName(e.target.value);
-    }
-
-    const handlePhoneChange = (e) => {
-        setPhone(e.target.value);
     }
 
     const sendEmail = (emailText) => {
@@ -232,7 +225,7 @@ const Checkout = () => {
                                                         value={firstName}
                                                         type="text"
                                                         name="firstName"
-                                                        onChange={handleFirstNameChange}
+                                                        onChange={(e) => setFirstName(e.target.value)}
                                                         placeholder="First Name"
                                                     />
                                                 </div>
@@ -244,7 +237,7 @@ const Checkout = () => {
                                                         value={lastName}
                                                         type="text"
                                                         name="lastName"
-                                                        onChange={handleLastNameChange}
+                                                        onChange={(e) => setLastName(e.target.value)}
                                                         placeholder="Last Name"
                                                     />
                                                 </div>
@@ -254,15 +247,19 @@ const Checkout = () => {
                                                 <div className="billing-info mb-20">
                                                     <label>Street Address</label>
                                                     <input
+                                                        value={address1}
                                                         className="billing-address"
                                                         placeholder="House number and street name"
                                                         type="text"
                                                         name="address1"
+                                                        onChange={(e) => setAddress1(e.target.value)}
                                                     />
                                                     <input
+                                                        value={address2}
                                                         placeholder="Apartment, suite, unit etc."
                                                         type="text"
                                                         name="address2"
+                                                        onChange={(e) => setAddress2(e.target.value)}
                                                     />
                                                 </div>
                                             </div>
@@ -273,7 +270,7 @@ const Checkout = () => {
                                                         value={phone}
                                                         type="text"
                                                         name="phone"
-                                                        onChange={handlePhoneChange}
+                                                        onChange={(e) => setPhone(e.target.value)}
                                                         placeholder="Phone Number"
                                                     />
                                                 </div>
@@ -285,7 +282,7 @@ const Checkout = () => {
                                                         value={email}
                                                         type="text"
                                                         name="email"
-                                                        onChange={handleEmailChange}
+                                                        onChange={(e) => setEmail(e.target.value)}
                                                         placeholder="Email Address"
                                                     />
                                                 </div>
