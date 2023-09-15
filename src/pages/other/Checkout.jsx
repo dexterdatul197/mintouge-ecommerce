@@ -49,7 +49,6 @@ const Checkout = () => {
                 dpp: dpp,
                 redeemCode: dpp,
             };
-            console.log(order);
 
             await OrderApi.addOrder(order);
             const _cartItem = {
