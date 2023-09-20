@@ -56,7 +56,6 @@ const Checkout = () => {
                 dpp: order.dpp,
                 redeemCode: order.redeemCode,
             };
-            console.log(_cartItem);
             dispatch(addDpp(_cartItem));
             return _cartItem;
         } catch (error) {
