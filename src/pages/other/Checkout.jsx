@@ -31,6 +31,13 @@ const Checkout = () => {
     const [address2, setAddress2] = useState("");
 
     const createInsurance = async (cartItem) => {
+        if (!cartItem?.hasInsurance) {
+            return {
+                ...cartItem,
+                dpp: "",
+                redeemCode: "",
+            };
+        }
         try {
             const dpp = String(Date.now());
             const order = {
@@ -98,7 +105,6 @@ const Checkout = () => {
         }
 
         const strItemList = [];
-        let index = 0;
         setMinting(true);
         const templateData = {
             "invoiceNumber": `#invoice-${String(Date.now()).split('').reverse().join('')}`,
@@ -136,8 +142,6 @@ const Checkout = () => {
                 "price": currency.currencySymbol + finalProductTotalPrice.toLocaleString(),
                 "dpp": dppText
             });
-
-            index++;
         }
         if (strItemList.length > 0) {
             cogoToast.error(
