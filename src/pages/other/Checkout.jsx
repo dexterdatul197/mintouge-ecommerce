@@ -106,38 +106,36 @@ const Checkout = () => {
             "products": []
         };
         for (const cartItem of cartItems) {
-            if (cartItem.hasInsurance) {
-                const item = await createInsurance(cartItem);
+            const item = await createInsurance(cartItem);
 
-                if (!item) {
-                    setMinting(false);
-                    return;
-                };
+            if (!item) {
+                setMinting(false);
+                return;
+            };
 
-                const discountedPrice = getDiscountPrice(item, rewards);
-                const insuranceFee = item.insuranceFee ? (item.hasInsurance ? item.insuranceFee : 0) : 0;
-                const finalProductPrice = (
-                    item.price * currency.currencyRate +
-                    insuranceFee
-                ).toFixed(2);
-                const finalDiscountedPrice = (
-                    discountedPrice * currency.currencyRate +
-                    insuranceFee
-                ).toFixed(2);
+            const discountedPrice = getDiscountPrice(item, rewards);
+            const insuranceFee = item.insuranceFee ? (item.hasInsurance ? item.insuranceFee : 0) : 0;
+            const finalProductPrice = (
+                item.price * currency.currencyRate +
+                insuranceFee
+            ).toFixed(2);
+            const finalDiscountedPrice = (
+                discountedPrice * currency.currencyRate +
+                insuranceFee
+            ).toFixed(2);
 
-                const dppText = item?.dpp ? `${item?.dpp}` : "-";
+            const dppText = item?.dpp ? `${item?.dpp}` : "-";
 
-                const finalProductTotalPrice = discountedPrice != null
-                    ? finalDiscountedPrice * item.quantity
-                    : finalProductPrice * item.quantity;
+            const finalProductTotalPrice = discountedPrice != null
+                ? finalDiscountedPrice * item.quantity
+                : finalProductPrice * item.quantity;
 
-                templateData["products"].push({
-                    "name": item.name,
-                    "count": item.quantity,
-                    "price": currency.currencySymbol + finalProductTotalPrice.toLocaleString(),
-                    "dpp": dppText
-                });
-            }
+            templateData["products"].push({
+                "name": item.name,
+                "count": item.quantity,
+                "price": currency.currencySymbol + finalProductTotalPrice.toLocaleString(),
+                "dpp": dppText
+            });
 
             index++;
         }
