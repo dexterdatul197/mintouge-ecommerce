@@ -361,14 +361,14 @@ const Cart = () => {
                       <h5>
                         Total products{" "}
                         <span>
-                          {currency.currencySymbol + cartTotalPrice.toFixed(2)}
+                          {currency.currencySymbol + cartTotalPrice.toLocaleString()}
                         </span>
                       </h5>
 
                       <h4 className="grand-totall-title">
                         Grand Total{" "}
                         <span>
-                          {currency.currencySymbol + cartTotalPrice.toFixed(2)}
+                          {currency.currencySymbol + cartTotalPrice.toLocaleString()}
                         </span>
                       </h4>
                       <button className="cart-btn-2" onClick={() => dispatch(deleteAllFromCart())}>
