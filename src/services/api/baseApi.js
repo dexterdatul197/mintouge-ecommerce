@@ -19,7 +19,6 @@ const axiosApi = axios.create({
 export const apiGet = async ({ url, queryParams, hasToken = true }) => {
     const headers = {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'no-cors',
         'Authorization': `Bearer ${API_SECRET_KEY}`
     };
     if (!hasToken) {
@@ -30,7 +29,6 @@ export const apiGet = async ({ url, queryParams, hasToken = true }) => {
         const response = await axiosApi.get(url, {
             params: queryParams,
             headers,
-            withCredentials: true,
         });
 
         if (response.status < 300) {
@@ -56,7 +54,6 @@ export const apiGet = async ({ url, queryParams, hasToken = true }) => {
 export const apiPost = async ({ url, queryParams, bodyParam, hasToken = true }) => {
     const headers = {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'no-cors',
         'Authorization': `Bearer ${API_SECRET_KEY}`
     };
     if (!hasToken) {
@@ -67,7 +64,6 @@ export const apiPost = async ({ url, queryParams, bodyParam, hasToken = true }) 
         const response = await axiosApi.post(url, bodyParam, {
             params: queryParams,
             headers: headers,
-            withCredentials: true,
         });
 
         if (response.status < 300) {
@@ -94,7 +90,6 @@ export const apiPost = async ({ url, queryParams, bodyParam, hasToken = true }) 
 export const apiPut = async ({ url, queryParams, bodyParam, hasToken = true }) => {
     const headers = {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'no-cors',
         'Authorization': `Bearer ${API_SECRET_KEY}`
     };
     if (!hasToken) {
@@ -105,7 +100,6 @@ export const apiPut = async ({ url, queryParams, bodyParam, hasToken = true }) =
         const response = await axiosApi.put(url, bodyParam, {
             params: queryParams,
             headers: headers,
-            withCredentials: true,
         });
 
         if (response.status < 300) {
@@ -132,7 +126,6 @@ export const apiPut = async ({ url, queryParams, bodyParam, hasToken = true }) =
 export const apiDelete = async ({ url, hasToken = true }) => {
     const headers = {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'no-cors',
         'Authorization': `Bearer ${API_SECRET_KEY}`
     };
     if (!hasToken) {
@@ -142,7 +135,6 @@ export const apiDelete = async ({ url, hasToken = true }) => {
     try {
         const response = await axiosApi.delete(url, {
             headers: headers,
-            withCredentials: true,
         });
 
         if (response.status < 300) {
