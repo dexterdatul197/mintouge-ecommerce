@@ -57,10 +57,10 @@ const Wishlist = () => {
                             const discountedPrice = getDiscountPrice(wishlistItem, rewards);
                             const finalProductPrice = (
                               wishlistItem.price * currency.currencyRate
-                            ).toFixed(2);
+                            ).toLocaleString("en-US");
                             const finalDiscountedPrice = (
                               discountedPrice * currency.currencyRate
-                            ).toFixed(2);
+                            ).toLocaleString("en-US");
                             const cartItem = cartItems.find(
                               (item) => item.id === wishlistItem.id
                             );
@@ -87,17 +87,17 @@ const Wishlist = () => {
                                     <Fragment>
                                       <span className="amount old">
                                         {currency.currencySymbol +
-                                          finalProductPrice.toLocaleString()}
+                                          finalProductPrice.toLocaleString("en-US")}
                                       </span>
                                       <span className="amount">
                                         {currency.currencySymbol +
-                                          finalDiscountedPrice.toLocaleString()}
+                                          finalDiscountedPrice.toLocaleString("en-US")}
                                       </span>
                                     </Fragment>
                                   ) : (
                                     <span className="amount">
                                       {currency.currencySymbol +
-                                        finalProductPrice.toLocaleString()}
+                                        finalProductPrice.toLocaleString("en-US")}
                                     </span>
                                   )}
                                 </td>

@@ -17,10 +17,10 @@ const ProductImageDescription = ({ spaceTopClass, spaceBottomClass, galleryType,
   const compareItem = compareItems.find(item => item.id === product.id);
 
   const discountedPrice = getDiscountPrice(product, rewards);
-  const finalProductPrice = +(product?.price * currency.currencyRate).toFixed(2);
+  const finalProductPrice = +(product?.price * currency.currencyRate).toLocaleString("en-US");
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
-  ).toFixed(2);
+  ).toLocaleString("en-US");
 
   return (
     <div className={clsx("shop-area", spaceTopClass, spaceBottomClass)}>

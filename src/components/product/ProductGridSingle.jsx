@@ -20,10 +20,10 @@ const ProductGridSingle = ({
   const [modalShow, setModalShow] = useState(false);
   const { rewards } = useSelector((state) => state.reward);
   const discountedPrice = getDiscountPrice(product, rewards);
-  const finalProductPrice = +(product?.price * currency.currencyRate).toFixed(2);
+  const finalProductPrice = +(product?.price * currency.currencyRate).toLocaleString("en-US");
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
-  ).toFixed(2);
+  ).toLocaleString("en-US");
   const dispatch = useDispatch();
 
   return (
@@ -92,13 +92,13 @@ const ProductGridSingle = ({
           <div className="product-price">
             {discountedPrice !== null ? (
               <Fragment>
-                <span>{currency.currencySymbol + finalDiscountedPrice.toLocaleString()}</span>{" "}
+                <span>{currency.currencySymbol + finalDiscountedPrice.toLocaleString("en-US")}</span>{" "}
                 <span className="old">
-                  {currency.currencySymbol + finalProductPrice.toLocaleString()}
+                  {currency.currencySymbol + finalProductPrice.toLocaleString("en-US")}
                 </span>
               </Fragment>
             ) : (
-              <span>{currency.currencySymbol + finalProductPrice.toLocaleString()} </span>
+              <span>{currency.currencySymbol + finalProductPrice.toLocaleString("en-US")} </span>
             )}
           </div>
         </div>

@@ -127,11 +127,11 @@ const Cart = () => {
                             const finalProductPrice = (
                               cartItem.price * currency.currencyRate +
                               insuranceFee
-                            ).toFixed(2);
+                            ).toLocaleString("en-US");
                             const finalDiscountedPrice = (
                               discountedPrice * currency.currencyRate +
                               insuranceFee
-                            ).toFixed(2);
+                            ).toLocaleString("en-US");
 
                             discountedPrice != null
                               ? (cartTotalPrice +=
@@ -182,21 +182,21 @@ const Cart = () => {
                                   {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
-                                        {currency.currencySymbol + cartItem.price.toLocaleString()}
+                                        {currency.currencySymbol + cartItem.price.toLocaleString("en-US")}
                                       </span>
                                       <span className="amount">
-                                        {currency.currencySymbol + discountedPrice.toLocaleString()}
+                                        {currency.currencySymbol + discountedPrice.toLocaleString("en-US")}
                                       </span>
                                     </Fragment>
                                   ) : (
                                     <span className="amount">
-                                      {currency.currencySymbol + cartItem.price.toLocaleString()}
+                                      {currency.currencySymbol + cartItem.price.toLocaleString("en-US")}
                                     </span>
                                   )}
                                 </td>
 
                                 <td id="insurancef=-fee" className="product-price-cart">
-                                  {currency.currencySymbol + insuranceFee.toLocaleString()}
+                                  {currency.currencySymbol + insuranceFee.toLocaleString("en-US")}
                                 </td>
 
                                 <td className="product-quantity">
@@ -246,11 +246,11 @@ const Cart = () => {
                                     ? currency.currencySymbol +
                                     (
                                       finalDiscountedPrice * cartItem.quantity
-                                    ).toLocaleString()
+                                    ).toLocaleString("en-US")
                                     : currency.currencySymbol +
                                     (
                                       finalProductPrice * cartItem.quantity
-                                    ).toLocaleString()}
+                                    ).toLocaleString("en-US")}
                                 </td>
 
                                 <td className="product-remove">
@@ -361,14 +361,14 @@ const Cart = () => {
                       <h5>
                         Total products{" "}
                         <span>
-                          {currency.currencySymbol + cartTotalPrice.toLocaleString()}
+                          {currency.currencySymbol + cartTotalPrice.toLocaleString("en-US")}
                         </span>
                       </h5>
 
                       <h4 className="grand-totall-title">
                         Grand Total{" "}
                         <span>
-                          {currency.currencySymbol + cartTotalPrice.toLocaleString()}
+                          {currency.currencySymbol + cartTotalPrice.toLocaleString("en-US")}
                         </span>
                       </h4>
                       <button className="cart-btn-2" onClick={() => dispatch(deleteAllFromCart())}>

@@ -10,7 +10,7 @@ const HeaderTop = ({ borderStyle }) => {
         <p>
           Free delivery on orders over{" "}
           <span>
-            {currency.currencySymbol + (200 * currency.currencyRate).toFixed(2)}
+            {currency.currencySymbol + (200 * currency.currencyRate).toLocaleString("en-US")}
           </span>
         </p>
       </div>

@@ -124,11 +124,11 @@ const Checkout = () => {
             const finalProductPrice = (
                 item.price * currency.currencyRate +
                 insuranceFee
-            ).toFixed(2);
+            ).toLocaleString("en-US");
             const finalDiscountedPrice = (
                 discountedPrice * currency.currencyRate +
                 insuranceFee
-            ).toFixed(2);
+            ).toLocaleString("en-US");
 
             const dppText = item?.dpp ? `${item?.dpp}` : "-";
 
@@ -139,7 +139,7 @@ const Checkout = () => {
             templateData["products"].push({
                 "name": item.name,
                 "count": item.quantity,
-                "price": currency.currencySymbol + finalProductTotalPrice.toLocaleString(),
+                "price": currency.currencySymbol + finalProductTotalPrice.toLocaleString("en-US"),
                 "dpp": dppText
             });
         }
@@ -292,11 +292,11 @@ const Checkout = () => {
                                                             const finalProductPrice = (
                                                                 cartItem.price * currency.currencyRate +
                                                                 insuranceFee
-                                                            ).toFixed(2);
+                                                            ).toLocaleString("en-US");
                                                             const finalDiscountedPrice = (
                                                                 discountedPrice * currency.currencyRate +
                                                                 insuranceFee
-                                                            ).toFixed(2);
+                                                            ).toLocaleString("en-US");
 
                                                             discountedPrice != null
                                                                 ? (cartTotalPrice +=
@@ -314,11 +314,11 @@ const Checkout = () => {
                                                                             (
                                                                                 finalDiscountedPrice *
                                                                                 cartItem.quantity
-                                                                            ).toLocaleString()
+                                                                            ).toLocaleString("en-US")
                                                                             : currency.currencySymbol +
                                                                             (
                                                                                 finalProductPrice * cartItem.quantity
-                                                                            ).toLocaleString()}
+                                                                            ).toLocaleString("en-US")}
                                                                     </span>
                                                                 </li>
                                                             );
@@ -336,7 +336,7 @@ const Checkout = () => {
                                                         <li className="order-total">Total</li>
                                                         <li>
                                                             {currency.currencySymbol +
-                                                                cartTotalPrice.toLocaleString()}
+                                                                cartTotalPrice.toLocaleString("en-US")}
                                                         </li>
                                                     </ul>
                                                 </div>

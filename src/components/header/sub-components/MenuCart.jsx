@@ -26,11 +26,11 @@ const MenuCart = () => {
               const finalProductPrice = (
                 item.price * currency.currencyRate +
                 insuranceFee
-              ).toFixed(2);
+              ).toLocaleString("en-US");
               const finalDiscountedPrice = (
                 discountedPrice * currency.currencyRate +
                 insuranceFee
-              ).toFixed(2);
+              ).toLocaleString("en-US");
               discountedPrice != null
                 ? (cartTotalPrice += finalDiscountedPrice * item.quantity)
                 : (cartTotalPrice += finalProductPrice * item.quantity);
@@ -76,7 +76,7 @@ const MenuCart = () => {
             <h4>
               Total :{" "}
               <span className="shop-total">
-                {currency.currencySymbol + cartTotalPrice.toFixed(2)}
+                {currency.currencySymbol + cartTotalPrice.toLocaleString("en-US")}
               </span>
             </h4>
           </div>
