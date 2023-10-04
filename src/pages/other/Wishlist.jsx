@@ -57,10 +57,10 @@ const Wishlist = () => {
                             const discountedPrice = getDiscountPrice(wishlistItem, rewards);
                             const finalProductPrice = (
                               wishlistItem.price * currency.currencyRate
-                            ).toLocaleString("en-US");
+                            );
                             const finalDiscountedPrice = (
                               discountedPrice * currency.currencyRate
-                            ).toLocaleString("en-US");
+                            );
                             const cartItem = cartItems.find(
                               (item) => item.id === wishlistItem.id
                             );

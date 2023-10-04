@@ -124,11 +124,11 @@ const Checkout = () => {
             const finalProductPrice = (
                 item.price * currency.currencyRate +
                 insuranceFee
-            ).toLocaleString("en-US");
+            );
             const finalDiscountedPrice = (
                 discountedPrice * currency.currencyRate +
                 insuranceFee
-            ).toLocaleString("en-US");
+            );
 
             const dppText = item?.dpp ? `${item?.dpp}` : "-";
 
@@ -292,11 +292,11 @@ const Checkout = () => {
                                                             const finalProductPrice = (
                                                                 cartItem.price * currency.currencyRate +
                                                                 insuranceFee
-                                                            ).toLocaleString("en-US");
+                                                            );
                                                             const finalDiscountedPrice = (
                                                                 discountedPrice * currency.currencyRate +
                                                                 insuranceFee
-                                                            ).toLocaleString("en-US");
+                                                            );
 
                                                             discountedPrice != null
                                                                 ? (cartTotalPrice +=

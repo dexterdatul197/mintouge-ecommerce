@@ -26,11 +26,11 @@ const MenuCart = () => {
               const finalProductPrice = (
                 item.price * currency.currencyRate +
                 insuranceFee
-              ).toLocaleString("en-US");
+              );
               const finalDiscountedPrice = (
                 discountedPrice * currency.currencyRate +
                 insuranceFee
-              ).toLocaleString("en-US");
+              );
               discountedPrice != null
                 ? (cartTotalPrice += finalDiscountedPrice * item.quantity)
                 : (cartTotalPrice += finalProductPrice * item.quantity);
@@ -49,8 +49,8 @@ const MenuCart = () => {
                     <h6>Qty: {item.quantity}</h6>
                     <span>
                       {discountedPrice !== null
-                        ? currency.currencySymbol + finalDiscountedPrice
-                        : currency.currencySymbol + finalProductPrice}
+                        ? currency.currencySymbol + finalDiscountedPrice.toLocaleString("en-US")
+                        : currency.currencySymbol + finalProductPrice.toLocaleString("en-US")}
                     </span>
                     {item.selectedProductColor && item.selectedProductSize ? (
                       <div className="cart-item-variation">

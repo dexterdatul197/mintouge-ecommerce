@@ -20,10 +20,10 @@ const ProductGridListSingle = ({
   const { rewards } = useSelector((state) => state.reward);
   const [modalShow, setModalShow] = useState(false);
   const discountedPrice = getDiscountPrice(product, rewards);
-  const finalProductPrice = +(product.price * currency.currencyRate).toLocaleString("en-US");
+  const finalProductPrice = +(product.price * currency.currencyRate);
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
-  ).toLocaleString("en-US");
+  );
   const dispatch = useDispatch();
 
   return (

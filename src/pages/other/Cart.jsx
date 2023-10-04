@@ -127,11 +127,11 @@ const Cart = () => {
                             const finalProductPrice = (
                               cartItem.price * currency.currencyRate +
                               insuranceFee
-                            ).toLocaleString("en-US");
+                            );
                             const finalDiscountedPrice = (
                               discountedPrice * currency.currencyRate +
                               insuranceFee
-                            ).toLocaleString("en-US");
+                            );
 
                             discountedPrice != null
                               ? (cartTotalPrice +=
@@ -303,21 +303,11 @@ const Cart = () => {
                           <div className="tax-select">
                             <label>* Country</label>
                             <select className="email s-email s-wid">
-                              <option>Bangladesh</option>
-                              <option>Albania</option>
-                              <option>Åland Islands</option>
-                              <option>Afghanistan</option>
-                              <option>Belgium</option>
-                            </select>
-                          </div>
-                          <div className="tax-select">
-                            <label>* Region / State</label>
-                            <select className="email s-email s-wid">
-                              <option>Bangladesh</option>
-                              <option>Albania</option>
-                              <option>Åland Islands</option>
-                              <option>Afghanistan</option>
-                              <option>Belgium</option>
+                              <option>United Kingdom</option>
+                              <option>United States</option>
+                              <option>Germany</option>
+                              <option>Italy</option>
+                              <option>France</option>
                             </select>
                           </div>
                           <div className="tax-select">
