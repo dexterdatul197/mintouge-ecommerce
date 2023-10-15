@@ -10,10 +10,14 @@ const MobileNavMenu = () => {
         <li>
           <Link to={"/"}>Home</Link>
         </li>
-
         <li>
           <Link to={"/shop-grid-standard"}>
             Shop
+          </Link>
+        </li>
+        <li>
+          <Link to={"/login-register"}>
+            login-register
           </Link>
         </li>
       </ul>
